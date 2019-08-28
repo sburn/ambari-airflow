@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<configuration>
+  <!--Configuration options for user authentication into the web application-->
+
+  <property>
+    <name>airflow_user</name>
+    <value>airflow</value>
+    <display-name>Airflow user</display-name>
+    <description></description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>airflow_group</name>
+    <value>airflow</value>
+    <display-name>Airflow group</display-name>
+    <description></description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>airflow_webserver_pid_file</name>
+    <value>/usr/local/airflow/airflow-webserver.pid</value>
+    <display-name>Airflow webserver PID file</display-name>
+    <description></description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>airflow_scheduler_pid_file</name>
+    <value>/usr/local/airflow/airflow-scheduler.pid</value>
+    <display-name>Airflow scheduler PID file</display-name>
+    <description></description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>airflow_worker_pid_file</name>
+    <value>/usr/local/airflow/airflow-worker.pid</value>
+    <display-name>Airflow worker PID file</display-name>
+    <description></description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>airflow_pip_params</name>
+    <value></value>
+    <display-name>Advanced pip installation parameters</display-name>
+    <description>Advanced parameters for pip cmd, e.g.: --index-url https://link --trusted-host host</description>
+    <value-attributes>
+      <overridable>false</overridable>
+      <editable-only-at-install>true</editable-only-at-install>
+      <empty-value-valid>true</empty-value-valid>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+</configuration>
