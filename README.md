@@ -13,7 +13,7 @@ Apache Airflow version included: 1.10.0
 
 ```
 ambari-server stop
-ambari-server install-mpack --mpack=airflow-service-mpack.tar.gz
+ambari-server install-mpack --mpack=airflow-mpack.tar.gz
 ambari-server start
 ```
 
@@ -24,7 +24,7 @@ ambari-server start
 
 ```
 ambari-server stop
-ambari-server upgrade-mpack --mpack=airflow-service-mpack.tar.gz
+ambari-server upgrade-mpack --mpack=airflow-mpack.tar.gz
 ambari-server start
 ```
 
