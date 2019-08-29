@@ -125,7 +125,7 @@
   </property>
   <property>
     <name>executor</name>
-    <value>SequentialExecutor</value>
+    <value>CeleryExecutor</value>
     <display-name>Executor</display-name>
     <description>The executor class that airflow should use. Choices include SequentialExecutor, LocalExecutor, CeleryExecutor, DaskExecutor.</description>
   </property>

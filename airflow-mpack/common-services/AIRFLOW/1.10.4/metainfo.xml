@@ -76,9 +76,10 @@
 						<package><name>python36</name></package>
 						<package><name>python36-devel</name></package>
 						<package><name>python36-pip</name></package>
-						<package><name>python36-virtualenv</name></package>
+						<package><name>python-virtualenv</name></package>
 						<package><name>krb5-devel</name></package>
 						<package><name>mysql-devel</name></package>
+						<package><name>postgresql-devel</name></package>
 						<package><name>sqlite-devel</name></package>
 						<package><name>openssl-devel</name></package>
 						<package><name>zlib-devel</name></package>

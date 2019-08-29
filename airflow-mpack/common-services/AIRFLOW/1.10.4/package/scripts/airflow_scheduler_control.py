@@ -24,36 +24,57 @@ class AirflowScheduler(Script):
 		Execute('virtualenv -p python3 ~/venv-airflow',
 			user=params.airflow_user
 		)
-		Execute(format("source ~/venv-airflow/bin/activate && pip3 install --disable-pip-version-check {airflow_pip_params} wheel setuptools secure-smtplib"),
+		Execute(format("source ~/venv-airflow/bin/activate ; pip3 install --disable-pip-version-check {airflow_pip_params} wheel setuptools secure-smtplib"),
 			user=params.airflow_user
 		)
-		Execute(format("source ~/venv-airflow/bin/activate && pip3 install --disable-pip-version-check {airflow_pip_params} 'apache-airflow[all_dbs,async,celery,cloudant,crypto,devel,devel_hadoop,druid,gcp,github_enterprise,google_auth,hdfs,hive,jdbc,kubernetes,ldap,mssql,mysql,oracle,password,postgres,qds,rabbitmq,redis,s3,samba,slack,ssh,vertica]==1.10.4'"),
+		Execute(format("source ~/venv-airflow/bin/activate ; pip3 install --disable-pip-version-check {airflow_pip_params} 'apache-airflow[all_dbs,async,celery,cloudant,crypto,devel,devel_hadoop,druid,gcp,github_enterprise,google_auth,hdfs,hive,jdbc,kubernetes,ldap,mssql,mysql,oracle,password,postgres,qds,rabbitmq,redis,s3,samba,slack,ssh,vertica]==1.10.4'"),
 			user=params.airflow_user
 		)
 
-		Execute('source ~/venv-airflow/bin/activate && airflow initdb',
+		Execute('source ~/venv-airflow/bin/activate ; airflow initdb',
 			user=params.airflow_user
 		)
 
 		Logger.info('Setting up Rabbitmq-server')
 
+		# Enable rabbitmq management plugin
 		Execute(('rabbitmq-plugins', 'enable', 'rabbitmq_management'),
-		    sudo=True
+		    sudo=True,
+		    environment={'HOME': params.airflow_home}
 		)
+		# Start rabbitmq
 		Execute(('systemctl', 'start', 'rabbitmq-server'),
 		    sudo=True
 		)
+		# Make rabbitmq virgin
+		Execute(('rabbitmqctl', 'stop_app'),
+		    sudo=True,
+		    environment={'HOME': params.airflow_home}
+		)
+		Execute(('rabbitmqctl', 'force_reset'),
+		    sudo=True,
+		    environment={'HOME': params.airflow_home}
+		)
+		Execute(('rabbitmqctl', 'start_app'),
+		    sudo=True,
+		    environment={'HOME': params.airflow_home}
+		)
+		# Add Airflow user as administrator
 		Execute(('rabbitmqctl', 'add_user', params.airflow_user, 'runrabbitrun'),
-		    sudo=True
+		    sudo=True,
+		    environment={'HOME': params.airflow_home}
 		)
 		Execute(('rabbitmqctl', 'add_vhost', 'airflow'),
-		    sudo=True
+		    sudo=True,
+		    environment={'HOME': params.airflow_home}
 		)
 		Execute(('rabbitmqctl', 'set_user_tags', params.airflow_user, 'administrator'),
-		    sudo=True
+		    sudo=True,
+		    environment={'HOME': params.airflow_home}
 		)
 		Execute(('rabbitmqctl', 'set_permissions', '-p', '/', params.airflow_user, "\".*\"", "\".*\"", "\".*\""),
-		    sudo=True
+		    sudo=True,
+		    environment={'HOME': params.airflow_home}
 		)
 		Execute(('systemctl', 'stop', 'rabbitmq-server'),
 		    sudo=True
