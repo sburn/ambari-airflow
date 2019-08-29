@@ -2,6 +2,7 @@
 import os,re
 import resource_management.libraries.functions
 from resource_management import *
+from resource_management.core import sudo
 from ambari_commons.os_check import OSCheck
 from ambari_commons.str_utils import cbool, cint
 from resource_management.libraries.functions import StackFeature
@@ -39,10 +40,10 @@ service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
 cluster_name = str(config['clusterName'])
 ambari_server_hostname = config['clusterHostInfo']['ambari_server_host'][0]
 
-airflow_home = config['configurations']['airflow-core-site']['airflow_home']
+airflow_home = '/home/' + config['configurations']['airflow-env']['airflow_user'] + '/airflow'
 airflow_user = config['configurations']['airflow-env']['airflow_user']
 airflow_group = config['configurations']['airflow-env']['airflow_group']
-airflow_webserver_pid_file = config['configurations']['airflow-env']['airflow_webserver_pid_file']
-airflow_scheduler_pid_file = config['configurations']['airflow-env']['airflow_scheduler_pid_file']
-airflow_worker_pid_file = config['configurations']['airflow-env']['airflow_worker_pid_file']
+airflow_webserver_pid_file = '/home/' + config['configurations']['airflow-env']['airflow_user'] + '/airflow/airflow-webserver.pid'
+airflow_scheduler_pid_file = '/home/' + config['configurations']['airflow-env']['airflow_user'] + '/airflow/airflow-scheduler.pid'
+airflow_worker_pid_file = '/home/' + config['configurations']['airflow-env']['airflow_user'] + '/airflow/airflow-worker.pid'
 airflow_pip_params = config['configurations']['airflow-env']['airflow_pip_params']

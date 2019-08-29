@@ -18,7 +18,7 @@
 <configuration supports_final="true">
   <!--Configuration options for user authentication into the web application-->
   <property>
-    <name>elasticsearch_host</name>
+    <name>host</name>
     <value></value>
     <display-name>Elasticsearch host</display-name>
     <description></description>
@@ -27,13 +27,13 @@
     </value-attributes>
   </property>
   <property>
-    <name>elasticsearch_log_id_template</name>
+    <name>log_id_template</name>
     <value>{dag_id}-{task_id}-{execution_date}-{try_number}</value>
     <display-name>Elasticsearch log id template</display-name>
     <description>We need to escape the curly braces by adding an additional curly brace.</description>
   </property>
   <property>
-    <name>elasticsearch_end_of_log_mark</name>
+    <name>end_of_log_mark</name>
     <value>end_of_log</value>
     <display-name>Elasticsearch end of log mark</display-name>
     <description></description>

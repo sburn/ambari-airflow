@@ -133,7 +133,7 @@
   </property>
   <property>
     <name>dag_default_view</name>
-    <value>tree</value>
+    <value>graph</value>
     <display-name>Dag default view</display-name>
     <description>Default DAG view.  Valid values are: tree, graph, duration, gantt, landing_times.</description>
   </property>

@@ -18,8 +18,8 @@
     <services>
         <service>
             <name>AIRFLOW</name>
-            <version>1.10.0</version>
-            <extends>common-services/AIRFLOW/1.10.0</extends>
+            <version>1.10.4</version>
+            <extends>common-services/AIRFLOW/1.10.4</extends>
         </service>
     </services>
 </metainfo>

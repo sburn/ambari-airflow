@@ -32,7 +32,7 @@
     <description></description>
     <on-ambari-upgrade add="true"/>
   </property>
-  <property>
+  <!-- property>
     <name>airflow_webserver_pid_file</name>
     <value>/usr/local/airflow/airflow-webserver.pid</value>
     <display-name>Airflow webserver PID file</display-name>
@@ -52,15 +52,16 @@
     <display-name>Airflow worker PID file</display-name>
     <description></description>
     <on-ambari-upgrade add="true"/>
-  </property>
+  </property -->
   <property>
     <name>airflow_pip_params</name>
     <value></value>
     <display-name>Advanced pip installation parameters</display-name>
-    <description>Advanced parameters for pip cmd, e.g.: --index-url https://link --trusted-host host</description>
+    <description>Advanced parameters for pip cmd, e.g.: --no-index --find-links=http://reposerver.local/pip-apache-airflow-1.10.4 --trusted-host=reposerver.local</description>
     <value-attributes>
-      <overridable>false</overridable>
-      <editable-only-at-install>true</editable-only-at-install>
+      <value></value>
+      <overridable>true</overridable>
+      <editable-only-at-install>false</editable-only-at-install>
       <empty-value-valid>true</empty-value-valid>
     </value-attributes>
     <on-ambari-upgrade add="true"/>

@@ -24,9 +24,9 @@
     <description>The app name that will be used by celery.</description>
   </property>
   <property>
-    <name>celeryd_concurrency</name>
+    <name>worker_concurrency</name>
     <value>16</value>
-    <display-name>Celeryd concurrency</display-name>
+    <display-name>Worker concurrency</display-name>
     <description>The concurrency that will be used when starting workers with the "airflow worker" command. This defines the number of task instances that a worker will take, so size up your workers based on the resources on your worker box and the nature of your tasks.</description>
   </property>
   <property>
@@ -37,13 +37,13 @@
   </property>
   <property>
     <name>broker_url</name>
-    <value>sqla+mysql://airflow:airflow@localhost:3306/airflow</value>
+    <value>postgresql://airflow:airflow@localhost/airflow</value>
     <display-name>Broker url</display-name>
     <description>The Celery broker URL. Celery supports RabbitMQ, Redis and experimentally a sqlalchemy database. Refer to the Celery documentation for more information.</description>
   </property>
   <property>
     <name>result_backend</name>
-    <value>db+mysql://airflow:airflow@localhost:3306/airflow</value>
+    <value>db+postgresql+psycopg2://airflow:airflow@localhost/airflow</value>
     <display-name>Celery result backend</display-name>
     <description>Another key Celery setting.</description>
   </property>

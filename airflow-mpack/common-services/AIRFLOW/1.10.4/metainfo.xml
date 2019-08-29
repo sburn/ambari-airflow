@@ -22,7 +22,7 @@
 			<name>AIRFLOW</name>
 			<displayName>Airflow</displayName>
 			<comment>Airflow is a platform to programmatically author, schedule and monitor workflows.</comment>
-			<version>1.10.0</version>
+			<version>1.10.4</version>
 			<components>
 				<component>
 					<name>AIRFLOW_WEBSERVER</name>
@@ -73,12 +73,14 @@
 				<osSpecific>
 					<osFamily>redhat7,redhat6,redhat5</osFamily>
 					<packages>
+						<package><name>python36</name></package>
+						<package><name>python36-devel</name></package>
+						<package><name>python36-pip</name></package>
+						<package><name>python36-virtualenv</name></package>
 						<package><name>krb5-devel</name></package>
-						<package><name>python-devel</name></package>
+						<package><name>mysql-devel</name></package>
 						<package><name>sqlite-devel</name></package>
 						<package><name>openssl-devel</name></package>
-						<package><name>mysql-devel</name></package>
-						<package><name>python-pip</name></package>
 						<package><name>zlib-devel</name></package>
 						<package><name>bzip2-devel</name></package>
 						<package><name>ncurses-devel</name></package>
@@ -86,17 +88,20 @@
 						<package><name>which</name></package>
 						<package><name>gcc-c++</name></package>
 						<package><name>cyrus-sasl-devel</name></package>
+						<package><name>rabbitmq-server</name></package>
 					</packages>
 				</osSpecific>
 				<osSpecific>
 					<osFamily>debian7,ubuntu12,ubuntu14</osFamily>
 					<packages>
-						<package><name>libmysqlclient-dev</name></package>
 						<package><name>libssl-dev</name></package>
 						<package><name>libkrb5-dev</name></package>
 						<package><name>openssl-dev</name></package>
-						<package><name>python-dev</name></package>	
-						<package><name>python-pip</name></package>	   
+						<package><name>python3</name></package>	
+						<package><name>python3-dev</name></package>	
+						<package><name>python3-pip</name></package>	   
+						<package><name>python3-virtualenv</name></package>	   
+						<package><name>python-virtualenv</name></package>	   
 						<package><name>build-essential</name></package>
 						<package><name>python-pip</name></package>
 						<package><name>libghc-zlib-dev</name></package>

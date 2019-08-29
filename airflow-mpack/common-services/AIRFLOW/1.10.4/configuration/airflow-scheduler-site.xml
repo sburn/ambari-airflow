@@ -61,7 +61,7 @@
   </property>
   <property>
     <name>child_process_log_directory</name>
-    <value>/usr/local/airflow/logs/scheduler</value>
+    <value>~/airflow/logs/scheduler</value>
     <display-name>Child process log directory</display-name>
     <description>Child process log directory.</description>
   </property>

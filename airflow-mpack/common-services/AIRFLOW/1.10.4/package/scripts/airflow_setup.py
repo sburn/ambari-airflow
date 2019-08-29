@@ -6,43 +6,10 @@ from resource_management.core.logger import Logger
 from resource_management.core.resources.system import Execute, Directory, File
 from resource_management.core.shell import call
 from resource_management.core.system import System
+from resource_management.core import sudo
+from resource_management.core.shell import as_sudo
 from resource_management.libraries.functions.default import default
 
-def airflow_make_systemd_scripts_webserver(env):
-	import params
-	env.set_params(params)
-
-	confFileText = format("""[Unit]
-Description=Airflow webserver daemon
-After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
-Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
-
-[Service]
-EnvironmentFile=/etc/sysconfig/airflow
-User={airflow_user}
-Group={airflow_group}
-Type=simple
-ExecStart={airflow_home}/airflow_control.sh webserver
-Restart=on-failure
-RestartSec=5s
-PrivateTmp=true
-
-[Install]
-WantedBy=multi-user.target
-
-""")
-
-	with open("/etc/systemd/system/multi-user.target.wants/airflow-webserver.service", 'w') as configFile:
-		configFile.write(confFileText)
-	configFile.close()
-
-	confFileText = format("AIRFLOW_HOME={airflow_home}")
-
-	with open("/etc/sysconfig/airflow", 'w') as configFile:
-		configFile.write(confFileText)
-	configFile.close()
-
-	Execute("systemctl daemon-reload")
 
 def airflow_make_systemd_scripts_scheduler(env):
 	import params
@@ -54,31 +21,65 @@ After=network.target postgresql.service mysql.service redis.service rabbitmq-ser
 Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 
 [Service]
-EnvironmentFile=/etc/sysconfig/airflow
 User={airflow_user}
 Group={airflow_group}
-Type=simple
-ExecStart={airflow_home}/airflow_control.sh scheduler
+Type=forking
+ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow scheduler -D --pid ~/airflow/airflow-scheduler.pid"
+PIDFile=/home/{airflow_user}/airflow/airflow-scheduler.pid
 Restart=on-failure
 RestartSec=5s
-PrivateTmp=true
+PrivateTmp=False
 
 [Install]
 WantedBy=multi-user.target
 
 """)
-
-	with open("/etc/systemd/system/multi-user.target.wants/airflow-scheduler.service", 'w') as configFile:
+	with open("/tmp/airflow-scheduler.service", 'w') as configFile:
 		configFile.write(confFileText)
 	configFile.close()
+	Execute(('mv', '/tmp/airflow-scheduler.service', '/etc/systemd/system/airflow-scheduler.service'),
+	    sudo=True
+	)
 
-	confFileText = format("AIRFLOW_HOME={airflow_home}")
+	Execute(('systemctl', 'daemon-reload'),
+	    sudo=True
+	)
 
-	with open("/etc/sysconfig/airflow", 'w') as configFile:
+
+def airflow_make_systemd_scripts_webserver(env):
+	import params
+	env.set_params(params)
+
+	confFileText = format("""[Unit]
+Description=Airflow webserver daemon
+After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
+Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
+
+[Service]
+User={airflow_user}
+Group={airflow_group}
+Type=forking
+ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow webserver -D --pid ~/airflow/airflow-webserver.pid"
+PIDFile=/home/{airflow_user}/airflow/airflow-webserver.pid
+Restart=on-failure
+RestartSec=5s
+PrivateTmp=False
+
+[Install]
+WantedBy=multi-user.target
+
+""")
+	with open("/tmp/airflow-webserver.service", 'w') as configFile:
 		configFile.write(confFileText)
 	configFile.close()
+	Execute(('mv', '/tmp/airflow-webserver.service', '/etc/systemd/system/airflow-webserver.service'),
+	    sudo=True
+	)
 
-	Execute("systemctl daemon-reload")
+	Execute(('systemctl', 'daemon-reload'),
+	    sudo=True
+	)
+
 
 def airflow_make_systemd_scripts_worker(env):
 	import params
@@ -90,45 +91,31 @@ After=network.target postgresql.service mysql.service redis.service rabbitmq-ser
 Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 
 [Service]
-EnvironmentFile=/etc/sysconfig/airflow
 User={airflow_user}
 Group={airflow_group}
-Type=simple
-ExecStart={airflow_home}/airflow_control.sh worker
+Type=forking
+ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow worker -D --pid ~/airflow/airflow-worker.pid"
+PIDFile=/home/{airflow_user}/airflow/airflow-worker.pid
 Restart=on-failure
 RestartSec=5s
-PrivateTmp=true
+PrivateTmp=False
 
 [Install]
 WantedBy=multi-user.target
 
 """)
 
-	with open("/etc/systemd/system/multi-user.target.wants/airflow-worker.service", 'w') as configFile:
+	with open("/tmp/airflow-worker.service", 'w') as configFile:
 		configFile.write(confFileText)
 	configFile.close()
+	Execute(('mv', '/tmp/airflow-worker.service', '/etc/systemd/system/airflow-worker.service'),
+	    sudo=True
+	)
 
-	confFileText = format("AIRFLOW_HOME={airflow_home}")
+	Execute(('systemctl', 'daemon-reload'),
+	    sudo=True
+	)
 
-	with open("/etc/sysconfig/airflow", 'w') as configFile:
-		configFile.write(confFileText)
-	configFile.close()
-
-	Execute("systemctl daemon-reload")
-
-def airflow_make_startup_script(env):
-	import params
-	env.set_params(params)
-
-	confFileText = format("""#!/bin/bash
-
-export AIRFLOW_HOME={airflow_home} && $(which airflow) $1 --pid {airflow_home}/airflow-sys-$1.pid
-""")
-
-	with open(format("{airflow_home}/airflow_control.sh"), 'w') as configFile:
-		configFile.write(confFileText)
-	configFile.close()
-	Execute(format("chmod 755 {airflow_home}/airflow_control.sh"))
 
 def airflow_generate_config_for_section(sections):
 	"""
@@ -142,6 +129,7 @@ def airflow_generate_config_for_section(sections):
 			section_config += format("{key} = {value}\n")
 		result[section] = section_config
 	return result
+
 
 def airflow_configure(env):
 	import params
@@ -177,6 +165,13 @@ def airflow_configure(env):
 	for section, value in airflow_config.items():
 		airflow_config_file += format("[{section}]\n{value}\n")
 
-	with open(params.airflow_home + "/airflow.cfg", 'w') as configFile:
+	with open("/tmp/airflow.cfg", 'w') as configFile:
 		configFile.write(airflow_config_file)
 	configFile.close()
+	Execute(('mv', '/tmp/airflow.cfg', params.airflow_home + '/airflow.cfg'),
+	    sudo=True
+	)
+	Execute(('chown', format("{airflow_user}:{airflow_group}"), format("{airflow_home}/airflow.cfg")),
+	    sudo=True
+	)
+

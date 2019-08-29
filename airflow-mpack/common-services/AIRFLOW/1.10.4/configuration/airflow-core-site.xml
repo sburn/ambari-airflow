@@ -18,22 +18,21 @@
 <configuration supports_final="true">
   <!--Configuration options for user authentication into the web application-->
 
-  <property>
+  <!-- property>
     <name>airflow_home</name>
     <value>/usr/local/airflow</value>
     <display-name>Airflow home</display-name>
     <description>The home folder for airflow, default is airflow_install_dir/airflow.</description>
-  </property>
-
+  </property -->
   <property>
     <name>dags_folder</name>
-    <value>/usr/local/airflow/dags</value>
+    <value>~/airflow/dags</value>
     <display-name>Dags folder</display-name>
     <description>The folder where your airflow pipelines live, most likely a subfolder in a code repository.</description>
   </property>
   <property>
     <name>base_log_folder</name>
-    <value>/usr/local/airflow/logs</value>
+    <value>~/airflow/logs</value>
     <display-name>Base log folder</display-name>
     <description>The folder where airflow should store its log files.</description>
   </property>
@@ -130,12 +129,23 @@
     <display-name>Executor</display-name>
     <description>The executor class that airflow should use. Choices include SequentialExecutor, LocalExecutor, CeleryExecutor, DaskExecutor.</description>
   </property>
-
+  <property>
+    <name>sql_alchemy_schema</name>
+    <value></value>
+    <display-name>SQL alchemy schema</display-name>
+    <description>The schema to use for the metadata database. SqlAlchemy supports databases with the concept of multiple schemas.</description>
+   <value-attributes>
+      <value></value>
+      <overridable>true</overridable>
+      <editable-only-at-install>false</editable-only-at-install>
+      <empty-value-valid>true</empty-value-valid>
+    </value-attributes>
+  </property>
   <property>
     <name>sql_alchemy_conn</name>
-    <value>sqlite:////usr/local/airflow/airflow.db</value>
+    <value>sqlite:////tmp/airflow.db</value>
     <display-name>SQL alchemy connection</display-name>
-    <description>The SqlAlchemy connection string to the metadata database. SqlAlchemy supports many different database engine, more information their website.</description>
+    <description>The SqlAlchemy connection string to the metadata database. SqlAlchemy supports many different database engine, more information their website, ex: postgresql+psycopg2://airflow:airflow@localhost/airflow</description>
   </property>
   <property>
     <name>sql_alchemy_pool_enabled</name>
@@ -199,7 +209,7 @@
   </property>
   <property>
     <name>plugins_folder</name>
-    <value>/usr/local/airflow/plugins</value>
+    <value>~/airflow/plugins</value>
     <display-name>Plugins folder</display-name>
     <description>Where your Airflow plugins are stored.</description>
   </property>
@@ -223,7 +233,7 @@
   </property>
   <property>
     <name>task_runner</name>
-    <value>BashTaskRunner</value>
+    <value>StandardTaskRunner</value>
     <display-name>Task runner</display-name>
     <description>The class to use for running task instances in a subprocess.</description>
   </property>
