@@ -1,6 +1,7 @@
 # Apache Airflow management pack for Apache Ambari (airflow-ambari-mpack)
 
 [![Airflow version](https://img.shields.io/badge/Airflow-1.10.4-brightgreen.svg)](https://github.com/sburn/ambari-airflow)
+[![Python version](https://img.shields.io/badge/Python%203-brightgreen.svg)](https://github.com/sburn/ambari-airflow)
 [![License](http://img.shields.io/:license-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 This Mpack allows you to install/configure Airflow directly from Ambari.
