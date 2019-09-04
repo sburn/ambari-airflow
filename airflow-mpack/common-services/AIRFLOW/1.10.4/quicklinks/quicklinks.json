@@ -8,7 +8,7 @@
     "links": [
       {
         "name": "airflow_ui",
-        "label": "Airflow WEB-UI",
+        "label": "Airflow UI",
         "requires_user_name": "false",
         "component_name": "AIRFLOW_WEBSERVER",
         "url":"%@://%@:%@/",
@@ -22,16 +22,31 @@
         }
       },
       {
-        "name": "airflow_celery_flower",
-        "label": "Celery Flower",
+        "name": "airflow_flower_ui",
+        "label": "Celery monitoring UI",
         "requires_user_name": "false",
         "component_name": "AIRFLOW_WEBSERVER",
         "url":"%@://%@:%@/",
         "port":{
-          "http_property": "web_server_port",
+          "http_property": "flower_port",
           "http_default_port": "5555",
-          "https_property": "web_server_port",
+          "https_property": "flower_port",
           "https_default_port": "5555",
+          "regex": "^(\\d+)$",
+          "site": "airflow-webserver-site"
+        }
+      },
+      {
+        "name": "airflow_rabbitmq_ui",
+        "label": "Rabbitmq Management UI",
+        "requires_user_name": "false",
+        "component_name": "AIRFLOW_SCHEDULER",
+        "url":"%@://%@:%@/",
+        "port":{
+          "http_property": "rabbitmq_management_port",
+          "http_default_port": "15672",
+          "https_property": "rabbitmq_management_port",
+          "https_default_port": "15672",
           "regex": "^(\\d+)$",
           "site": "airflow-webserver-site"
         }

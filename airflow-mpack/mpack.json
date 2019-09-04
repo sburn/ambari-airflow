@@ -43,6 +43,10 @@
             {
               "stack_name" : "HDP",
               "stack_version" : "3.0"
+            },
+            {
+              "stack_name" : "HDP",
+              "stack_version" : "3.1"
             }
           ]
         }

@@ -75,7 +75,6 @@
 					<packages>
 						<package><name>python36</name></package>
 						<package><name>python36-devel</name></package>
-						<package><name>python36-pip</name></package>
 						<package><name>python-virtualenv</name></package>
 						<package><name>krb5-devel</name></package>
 						<package><name>mysql-devel</name></package>

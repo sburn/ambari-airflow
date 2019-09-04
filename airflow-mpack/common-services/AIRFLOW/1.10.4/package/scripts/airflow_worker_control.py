@@ -21,16 +21,25 @@ class AirflowWorker(Script):
                     sudo=True
                 )
 
+		# Create virtualenv
                 Execute(format("virtualenv -p python3 ~/venv-airflow"),
                         user=params.airflow_user
                 )
-                Execute(format("source ~/venv-airflow/bin/activate && pip3 install --disable-pip-version-check {airflow_pip_params} wheel setuptools secure-smtplib"),
+
+		# Install dependencies
+                Execute(format("source ~/venv-airflow/bin/activate && pip install --upgrade {airflow_pip_params} pip"),
                         user=params.airflow_user
                 )
-                Execute(format("source ~/venv-airflow/bin/activate && pip3 install --disable-pip-version-check {airflow_pip_params} 'apache-airflow[all_dbs,async,celery,cloudant,crypto,devel,devel_hadoop,druid,gcp,github_enterprise,google_auth,hdfs,hive,jdbc,kubernetes,ldap,mssql,mysql,oracle,password,postgres,qds,rabbitmq,redis,s3,samba,slack,ssh,vertica]==1.10.4'"),
+                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} wheel setuptools secure-smtplib"),
                         user=params.airflow_user
                 )
 
+		# Install Airflow
+                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} 'apache-airflow[all_dbs,async,celery,cloudant,crypto,devel,devel_hadoop,druid,gcp,github_enterprise,google_auth,hdfs,hive,jdbc,kubernetes,ldap,mssql,mysql,oracle,password,postgres,qds,rabbitmq,redis,s3,samba,slack,ssh,vertica]==1.10.4'"),
+                        user=params.airflow_user
+                )
+
+		# Initialize Airflow database
 		Execute(format("source ~/venv-airflow/bin/activate && airflow initdb"),
 			user=params.airflow_user
 		)
