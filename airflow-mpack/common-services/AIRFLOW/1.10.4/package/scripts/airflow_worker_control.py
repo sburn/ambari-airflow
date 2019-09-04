@@ -18,31 +18,25 @@ class AirflowWorker(Script):
 
                 Execute(('useradd', '-m', format("{airflow_user}")),
                     ignore_failures=True,
-                    sudo=True
-                )
+                    sudo=True)
 
 		# Create virtualenv
                 Execute(format("virtualenv -p python3 ~/venv-airflow"),
-                        user=params.airflow_user
-                )
+                        user=params.airflow_user)
 
 		# Install dependencies
                 Execute(format("source ~/venv-airflow/bin/activate && pip install --upgrade {airflow_pip_params} pip"),
-                        user=params.airflow_user
-                )
+                        user=params.airflow_user)
                 Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} wheel setuptools secure-smtplib"),
-                        user=params.airflow_user
-                )
+                        user=params.airflow_user)
 
 		# Install Airflow
                 Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} 'apache-airflow[all_dbs,async,celery,cloudant,crypto,devel,devel_hadoop,druid,gcp,github_enterprise,google_auth,hdfs,hive,jdbc,kubernetes,ldap,mssql,mysql,oracle,password,postgres,qds,rabbitmq,redis,s3,samba,slack,ssh,vertica]==1.10.4'"),
-                        user=params.airflow_user
-                )
+                        user=params.airflow_user)
 
 		# Initialize Airflow database
 		Execute(format("source ~/venv-airflow/bin/activate && airflow initdb"),
-			user=params.airflow_user
-		)
+			user=params.airflow_user)
 
 	def configure(self, env):
 		import params
@@ -54,24 +48,19 @@ class AirflowWorker(Script):
 		import params
 		self.configure(env)
                 Execute(('systemctl', 'enable', 'airflow-worker'),
-                    sudo=True
-                )
+                    sudo=True)
                 Execute(('systemctl', 'start', 'airflow-worker'),
-                    sudo=True
-                )
+                    sudo=True)
 
 	def stop(self, env):
 		import params
 		env.set_params(params)
                 Execute(('systemctl', 'stop', 'airflow-worker'),
-                    sudo=True
-                )
+                    sudo=True)
                 Execute(('systemctl', 'disable', 'airflow-worker'),
-                    sudo=True
-                )
+                    sudo=True)
 		File(params.airflow_worker_pid_file,
-			action = "delete"
-		)
+			action = "delete")
 
 	def status(self, env):
 		import status_params
