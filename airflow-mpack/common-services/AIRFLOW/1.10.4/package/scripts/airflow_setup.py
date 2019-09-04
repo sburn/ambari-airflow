@@ -9,7 +9,7 @@ from resource_management.core.system import System
 from resource_management.core import sudo
 from resource_management.core.shell import as_sudo
 from resource_management.libraries.functions.default import default
-
+from resource_management.core.resources import File
 
 def airflow_make_systemd_scripts_scheduler(env):
 	import params
@@ -34,11 +34,12 @@ PrivateTmp=False
 WantedBy=multi-user.target
 
 """)
-	with open("/tmp/airflow-scheduler.service", 'w') as configFile:
-		configFile.write(confFileText)
-	configFile.close()
-	Execute(('mv', '/tmp/airflow-scheduler.service', '/etc/systemd/system/airflow-scheduler.service'),
-	    sudo=True
+
+	File("/etc/systemd/system/airflow-scheduler.service",
+	    mode=0644,
+	    owner=params.airflow_user,
+	    group=params.airflow_group,
+	    content=confFileText
 	)
 
 	Execute(('systemctl', 'daemon-reload'),
@@ -67,18 +68,17 @@ PrivateTmp=False
 
 [Install]
 WantedBy=multi-user.target
-
 """)
-	with open("/tmp/airflow-webserver.service", 'w') as configFile:
-		configFile.write(confFileText)
-	configFile.close()
-	Execute(('mv', '/tmp/airflow-webserver.service', '/etc/systemd/system/airflow-webserver.service'),
-	    sudo=True
+
+	File("/etc/systemd/system/airflow-webserver.service",
+	    mode=0644,
+	    owner=params.airflow_user,
+	    group=params.airflow_group,
+	    content=confFileText
 	)
 
-	Execute(('systemctl', 'daemon-reload'),
-	    sudo=True
-	)
+	Execute(('systemctl', 'daemon-reload'), 
+	    sudo=True)
 
 
 def airflow_make_systemd_scripts_worker(env):
@@ -105,11 +105,11 @@ WantedBy=multi-user.target
 
 """)
 
-	with open("/tmp/airflow-worker.service", 'w') as configFile:
-		configFile.write(confFileText)
-	configFile.close()
-	Execute(('mv', '/tmp/airflow-worker.service', '/etc/systemd/system/airflow-worker.service'),
-	    sudo=True
+	File("/etc/systemd/system/airflow-worker.service",
+	    mode=0644,
+	    owner=params.airflow_user,
+	    group=params.airflow_group,
+	    content=confFileText
 	)
 
 	Execute(('systemctl', 'daemon-reload'),
@@ -162,16 +162,13 @@ def airflow_configure(env):
 		"kubernetes_secrets" : params.config['configurations']['airflow-kubernetessecrets-site']
 	})
 
-	for section, value in airflow_config.items():
+	for section, value in sorted(airflow_config.items()):
 		airflow_config_file += format("[{section}]\n{value}\n")
 
-	with open("/tmp/airflow.cfg", 'w') as configFile:
-		configFile.write(airflow_config_file)
-	configFile.close()
-	Execute(('mv', '/tmp/airflow.cfg', params.airflow_home + '/airflow.cfg'),
-	    sudo=True
-	)
-	Execute(('chown', format("{airflow_user}:{airflow_group}"), format("{airflow_home}/airflow.cfg")),
-	    sudo=True
+	File(params.airflow_home + '/airflow.cfg',
+	    mode=0644,
+	    owner=params.airflow_user,
+	    group=params.airflow_group,
+	    content=airflow_config_file
 	)
 
