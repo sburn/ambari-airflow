@@ -21,18 +21,48 @@ class AirflowWorker(Script):
                     sudo=True)
 
 		# Create virtualenv
-                Execute(format("virtualenv -p python3 ~/venv-airflow"),
+                Execute(format("virtualenv -p python3 --clear ~/venv-airflow"),
                         user=params.airflow_user)
 
 		# Install dependencies
                 Execute(format("source ~/venv-airflow/bin/activate && pip install --upgrade {airflow_pip_params} pip"),
                         user=params.airflow_user)
-                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} wheel setuptools secure-smtplib"),
+                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} wheel setuptools secure-smtplib psycopg2-binary"),
                         user=params.airflow_user)
 
 		# Install Airflow
                 Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} 'apache-airflow[all_dbs,async,celery,cloudant,crypto,devel,devel_hadoop,druid,gcp,github_enterprise,google_auth,hdfs,hive,jdbc,kubernetes,ldap,mssql,mysql,oracle,password,postgres,qds,rabbitmq,redis,s3,samba,slack,ssh,vertica]==1.10.4'"),
                         user=params.airflow_user)
+
+                File("/etc/rsyslog.d/airflow-worker.conf",
+                    mode=0644,
+                    owner=params.airflow_user,
+                    group=params.airflow_group,
+                    content=format("""
+if $programname  == 'airflow-worker' then {airflow_log_dir}/worker.log
+& stop
+		    """)
+                )
+                Execute(('systemctl', 'restart', 'rsyslog'),
+                    sudo=True)
+
+                # Add logrotate and apply
+                File("/etc/logrotate.d/airflow",
+                    mode=0644,
+                    owner=params.airflow_user,
+                    group=params.airflow_group,
+                    content=format("""
+{airflow_log_dir}/*.log
+{{
+    missingok
+    daily
+    copytruncate
+    rotate 7
+    notifempty
+}}
+                    """)
+                )
+
 
 		# Initialize Airflow database
 		Execute(format("source ~/venv-airflow/bin/activate && airflow initdb"),

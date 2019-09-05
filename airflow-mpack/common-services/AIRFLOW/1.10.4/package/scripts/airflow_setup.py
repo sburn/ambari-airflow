@@ -24,11 +24,13 @@ Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 User={airflow_user}
 Group={airflow_group}
 Type=forking
-ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow scheduler -D --pid ~/airflow/airflow-scheduler.pid"
-PIDFile=/home/{airflow_user}/airflow/airflow-scheduler.pid
+ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow scheduler -D --pid {airflow_scheduler_pid_file} --stderr {airflow_log_dir}/scheduler-err.log --stdout {airflow_log_dir}/scheduler-out.log -l {airflow_log_dir}/scheduler-log.log"
+PIDFile={airflow_scheduler_pid_file}
 Restart=on-failure
 RestartSec=5s
 PrivateTmp=False
+StandardOutput=syslog+console
+SyslogIdentifier=airflow-scheduler
 
 [Install]
 WantedBy=multi-user.target
@@ -43,14 +45,14 @@ WantedBy=multi-user.target
 	)
 
 	Execute(('systemctl', 'daemon-reload'),
-	    sudo=True
-	)
+	    sudo=True)
 
 
 def airflow_make_systemd_scripts_webserver(env):
 	import params
 	env.set_params(params)
 
+	# Create Airflow webserver systemd service
 	confFileText = format("""[Unit]
 Description=Airflow webserver daemon
 After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
@@ -60,11 +62,13 @@ Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 User={airflow_user}
 Group={airflow_group}
 Type=forking
-ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow webserver -D --pid ~/airflow/airflow-webserver.pid"
-PIDFile=/home/{airflow_user}/airflow/airflow-webserver.pid
+ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow webserver -D --pid {airflow_webserver_pid_file} --stderr {airflow_log_dir}/webserver-err.log --stdout {airflow_log_dir}/webserver-out.log -l {airflow_log_dir}/webserver-log.log"
+PIDFile={airflow_webserver_pid_file}
 Restart=on-failure
 RestartSec=5s
 PrivateTmp=False
+StandardOutput=syslog+console
+SyslogIdentifier=airflow-webserver
 
 [Install]
 WantedBy=multi-user.target
@@ -77,6 +81,37 @@ WantedBy=multi-user.target
 	    content=confFileText
 	)
 
+	# Create Airflow Celery Flower systemd service
+	confFileText = format("""[Unit]
+Description=Airflow Celery Flower
+After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
+Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
+
+[Service]
+User={airflow_user}
+Group={airflow_group}
+Type=forking
+ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow flower -D --pid {airflow_flower_pid_file} --stderr {airflow_log_dir}/flower-err.log --stdout {airflow_log_dir}/flower-out.log -l {airflow_log_dir}/flower-log.log"
+PIDFile={airflow_flower_pid_file}
+Restart=on-failure
+RestartSec=5s
+PrivateTmp=False
+StandardOutput=syslog+console
+SyslogIdentifier=airflow-flower
+
+[Install]
+WantedBy=multi-user.target
+""")
+
+	File("/etc/systemd/system/airflow-flower.service",
+	    mode=0644,
+	    owner=params.airflow_user,
+	    group=params.airflow_group,
+	    content=confFileText
+	)
+
+
+	# Apply changes to systemd
 	Execute(('systemctl', 'daemon-reload'), 
 	    sudo=True)
 
@@ -94,11 +129,13 @@ Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 User={airflow_user}
 Group={airflow_group}
 Type=forking
-ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow worker -D --pid ~/airflow/airflow-worker.pid"
-PIDFile=/home/{airflow_user}/airflow/airflow-worker.pid
+ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow worker -D --pid {airflow_worker_pid_file} --stderr {airflow_log_dir}/worker-err.log --stdout {airflow_log_dir}/worker-out.log -l {airflow_log_dir}/worker-log.log"
+PIDFile={airflow_worker_pid_file}
 Restart=on-failure
 RestartSec=5s
 PrivateTmp=False
+StandardOutput=syslog+console
+SyslogIdentifier=airflow-worker
 
 [Install]
 WantedBy=multi-user.target
@@ -113,8 +150,7 @@ WantedBy=multi-user.target
 	)
 
 	Execute(('systemctl', 'daemon-reload'),
-	    sudo=True
-	)
+	    sudo=True)
 
 
 def airflow_generate_config_for_section(sections):
@@ -134,6 +170,20 @@ def airflow_generate_config_for_section(sections):
 def airflow_configure(env):
 	import params
 	env.set_params(params)
+
+	## Create directories
+
+	Directory(
+	    [params.airflow_home, params.airflow_pid_dir, params.airflow_log_dir],
+	    mode=0755,
+	    cd_access='a',
+	    owner=params.airflow_user,
+	    group=params.airflow_group,
+	    create_parents=True,
+	    recursive_ownership=True
+	)
+
+	## Write config file
 
 	airflow_config_file = ""
 
@@ -171,4 +221,5 @@ def airflow_configure(env):
 	    group=params.airflow_group,
 	    content=airflow_config_file
 	)
+
 

@@ -22,22 +22,53 @@ class AirflowScheduler(Script):
 		)
 
 		# Create virtualenv
-		Execute('virtualenv -p python3 ~/venv-airflow',
+		Execute('virtualenv -p python3 --clear ~/venv-airflow',
 			user=params.airflow_user)
 
 		# Install dependencies
 		Execute(format("source ~/venv-airflow/bin/activate && pip install --upgrade {airflow_pip_params} pip"),
 			user=params.airflow_user)
-		Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} wheel setuptools secure-smtplib"),
+		Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} wheel setuptools secure-smtplib psycopg2-binary"),
 			user=params.airflow_user)
 
 		# Install Airflow
 		Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} 'apache-airflow[all_dbs,async,celery,cloudant,crypto,devel,devel_hadoop,druid,gcp,github_enterprise,google_auth,hdfs,hive,jdbc,kubernetes,ldap,mssql,mysql,oracle,password,postgres,qds,rabbitmq,redis,s3,samba,slack,ssh,vertica]==1.10.4'"),
 			user=params.airflow_user)
 
+		# Add syslog and apply
+		File("/etc/rsyslog.d/airflow-scheduler.conf",
+		    mode=0644,
+		    owner=params.airflow_user,
+		    group=params.airflow_group,
+		    content=format("""
+if $programname  == 'airflow-scheduler' then {airflow_log_dir}/scheduler.log
+& stop
+		    """)
+		)
+		Execute(('systemctl', 'restart', 'rsyslog'),
+		    sudo=True)
+
+		# Add logrotate and apply
+		File("/etc/logrotate.d/airflow",
+		    mode=0644,
+		    owner=params.airflow_user,
+		    group=params.airflow_group,
+		    content=format("""
+{airflow_log_dir}/*.log
+{{
+    missingok
+    daily
+    copytruncate
+    rotate 7
+    notifempty
+}}
+		    """)
+		)
+
 		# Initialize Airflow database
 		Execute('source ~/venv-airflow/bin/activate && airflow initdb',
 			user=params.airflow_user)
+
 
 		Logger.info('Setting up Rabbitmq-server')
 
@@ -50,7 +81,7 @@ class AirflowScheduler(Script):
 		Execute(('systemctl', 'start', 'rabbitmq-server'),
 		    sudo=True)
 
-		# Make rabbitmq virgin
+		# Return rabbitmq' virginity
 		Execute(('rabbitmqctl', 'stop_app'),
 		    sudo=True,
 		    environment={'HOME': params.airflow_home})
@@ -79,7 +110,7 @@ class AirflowScheduler(Script):
 		env.set_params(params)
 		airflow_configure(env)
 		airflow_make_systemd_scripts_scheduler(env)
-		
+
 	def start(self, env):
 		import params
 		self.configure(env)

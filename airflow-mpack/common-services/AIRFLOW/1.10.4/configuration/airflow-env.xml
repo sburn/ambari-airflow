@@ -32,6 +32,20 @@
     <description></description>
     <on-ambari-upgrade add="true"/>
   </property>
+  <property>
+    <name>airflow_pid_dir</name>
+    <value>/var/run/airflow</value>
+    <display-name>Airflow PID files directory</display-name>
+    <description>Directory for airflow daemons PIDs</description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>airflow_log_dir</name>
+    <value>/var/log/airflow</value>
+    <display-name>Airflow LOG files directory</display-name>
+    <description>Directory for airflow daemons output logs (stderr, stdout)</description>
+    <on-ambari-upgrade add="true"/>
+  </property>
   <!-- property>
     <name>airflow_webserver_pid_file</name>
     <value>/usr/local/airflow/airflow-webserver.pid</value>
