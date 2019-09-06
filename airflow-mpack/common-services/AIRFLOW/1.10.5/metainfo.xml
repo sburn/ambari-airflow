@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<metainfo>
+	<schemaVersion>2.0</schemaVersion>
+	<services>
+		<service>
+			<name>AIRFLOW</name>
+			<displayName>Airflow</displayName>
+			<comment>Airflow is a platform to programmatically author, schedule and monitor workflows.</comment>
+			<version>1.10.5</version>
+			<components>
+				<component>
+					<name>AIRFLOW_WEBSERVER</name>
+					<displayName>Airflow Webserver</displayName>
+					<category>MASTER</category>
+					<cardinality>1+</cardinality>
+					<commandScript>
+						<script>scripts/airflow_webserver_control.py</script>
+						<scriptType>PYTHON</scriptType>
+						<timeout>1200</timeout>
+					</commandScript>
+					<customCommands>
+						<customCommand>
+							<name>Initdb</name>
+							<background>false</background>
+							<commandScript>
+								<script>scripts/airflow_webserver_control.py</script>
+								<scriptType>PYTHON</scriptType>
+							</commandScript>
+						</customCommand>
+					</customCommands>
+				</component>
+				<component>
+					<name>AIRFLOW_SCHEDULER</name>
+					<displayName>Airflow Scheduler</displayName>
+					<category>MASTER</category>
+					<cardinality>1</cardinality>
+					<commandScript>
+						<script>scripts/airflow_scheduler_control.py</script>
+						<scriptType>PYTHON</scriptType>
+						<timeout>1200</timeout>
+					</commandScript>
+				</component>
+				<component>
+					<name>AIRFLOW_WORKER</name>
+					<displayName>Airflow Worker</displayName>
+					<category>SLAVE</category>
+					<cardinality>0+</cardinality>
+					<commandScript>
+						<script>scripts/airflow_worker_control.py</script>
+						<scriptType>PYTHON</scriptType>
+						<timeout>1200</timeout>
+					</commandScript>
+				</component>
+			</components>
+
+			<osSpecifics>
+				<osSpecific>
+					<osFamily>redhat7,redhat6,redhat5</osFamily>
+					<packages>
+						<package><name>python36</name></package>
+						<package><name>python36-devel</name></package>
+						<package><name>python-virtualenv</name></package>
+						<package><name>krb5-devel</name></package>
+						<package><name>mysql-devel</name></package>
+						<package><name>postgresql-devel</name></package>
+						<package><name>sqlite-devel</name></package>
+						<package><name>openssl-devel</name></package>
+						<package><name>zlib-devel</name></package>
+						<package><name>bzip2-devel</name></package>
+						<package><name>ncurses-devel</name></package>
+						<package><name>wget</name></package>
+						<package><name>which</name></package>
+						<package><name>gcc-c++</name></package>
+						<package><name>cyrus-sasl-devel</name></package>
+						<package><name>rabbitmq-server</name></package>
+					</packages>
+				</osSpecific>
+				<osSpecific>
+					<osFamily>debian7,ubuntu12,ubuntu14</osFamily>
+					<packages>
+						<package><name>libssl-dev</name></package>
+						<package><name>libkrb5-dev</name></package>
+						<package><name>openssl-dev</name></package>
+						<package><name>python3</name></package>	
+						<package><name>python3-dev</name></package>	
+						<package><name>python3-pip</name></package>	   
+						<package><name>python3-virtualenv</name></package>	   
+						<package><name>python-virtualenv</name></package>	   
+						<package><name>build-essential</name></package>
+						<package><name>python-pip</name></package>
+						<package><name>libghc-zlib-dev</name></package>
+						<package><name>libzip-dev</name></package>
+						<package><name>libncurses5-dev</name></package>
+						<package><name>wget</name></package>
+						<package><name>which</name></package>
+						<package><name>build-essential</name></package>
+						<package><name>libsasl2-dev</name></package>
+					</packages>
+				</osSpecific>
+			</osSpecifics>
+
+			<configuration-dependencies>
+				<config-type>airflow-env</config-type>
+				<config-type>airflow-admin-site</config-type>
+				<config-type>airflow-api-site</config-type>
+				<config-type>airflow-celery-site</config-type>
+				<config-type>airflow-cli-site</config-type>
+				<config-type>airflow-core-site</config-type>
+				<config-type>airflow-dask-site</config-type>
+				<config-type>airflow-email-site</config-type>
+				<config-type>airflow-githubenterprise-site</config-type>
+				<config-type>airflow-kerberos-site</config-type>
+				<config-type>airflow-ldap-site</config-type>
+				<config-type>airflow-mesos-site</config-type>
+				<config-type>airflow-operators-site</config-type>
+				<config-type>airflow-scheduler-site</config-type>
+				<config-type>airflow-smtp-site</config-type>
+				<config-type>airflow-webserver-site</config-type>
+				<config-type>airflow-lineage-site</config-type>
+				<config-type>airflow-atlas-site</config-type>
+				<config-type>airflow-hive-site</config-type>
+				<config-type>airflow-celerybrokertransportoptions-site</config-type>
+				<config-type>airflow-elasticsearch-site</config-type>
+				<config-type>airflow-kubernetes-site</config-type>
+				<config-type>airflow-kubernetessecrets-site</config-type>
+			</configuration-dependencies>
+			<restartRequiredAfterChange>true</restartRequiredAfterChange>
+
+			<quickLinksConfigurations>
+				<quickLinksConfiguration>
+					<fileName>quicklinks.json</fileName>
+					<default>true</default>
+				</quickLinksConfiguration>
+			</quickLinksConfigurations>
+		</service>
+	</services>
+</metainfo>

@@ -1,13 +1,13 @@
 # Apache Airflow management pack for Apache Ambari (airflow-ambari-mpack)
 
-[![Airflow version](https://img.shields.io/badge/Airflow-1.10.4-brightgreen.svg)](https://github.com/sburn/ambari-airflow)
+[![Airflow version](https://img.shields.io/badge/Airflow-1.10.5-brightgreen.svg)](https://github.com/sburn/ambari-airflow)
 [![Python version](https://img.shields.io/badge/Python-3-brightgreen.svg)](https://github.com/sburn/ambari-airflow)
 [![Executor type](https://img.shields.io/badge/Executor-Celery-brightgreen.svg)](https://github.com/sburn/ambari-airflow)
 [![HDP version](https://img.shields.io/badge/HDP-3.1-brightgreen.svg)](https://github.com/sburn/ambari-airflow)
 [![License](http://img.shields.io/:license-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 This Mpack allows you to install/configure Airflow directly from Ambari.
-Apache Airflow version included: 1.10.4
+Apache Airflow version included: 1.10.5
 
 #### Installing Apache Aiflow Mpack:
 1. Stop Ambari server.
