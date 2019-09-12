@@ -105,14 +105,15 @@ if $programname  == 'airflow-scheduler' then {airflow_log_dir}/scheduler.log
 		Execute(('rabbitmqctl', 'set_user_tags', params.airflow_user, 'administrator'),
 		    sudo=True,
 		    environment={'HOME': params.airflow_home})
-		Execute(('rabbitmqctl', 'set_permissions', '-p', '/', params.airflow_user, "\".*\"", "\".*\"", "\".*\""),
+		Execute(('rabbitmqctl', 'set_permissions', '-p', '/', params.airflow_user, format('.*'), format('.*'), format('.*')),
 		    sudo=True,
 		    environment={'HOME': params.airflow_home})
-		Execute(('rabbitmqctl', 'set_permissions', '-p', 'airflow', params.airflow_user, "\".*\"", "\".*\"", "\".*\""),
+		Execute(('rabbitmqctl', 'set_permissions', '-p', 'airflow', params.airflow_user, format('.*'), format('.*'), format('.*')),
 		    sudo=True,
 		    environment={'HOME': params.airflow_home})
 		Execute(('systemctl', 'stop', 'rabbitmq-server'),
 		    sudo=True)
+
 
 	def configure(self, env):
 		import params
