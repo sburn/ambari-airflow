@@ -27,7 +27,7 @@ class AirflowWebserver(Script):
 		# Install dependencies
                 Execute(format("source ~/venv-airflow/bin/activate && pip install --upgrade {airflow_pip_params} pip wheel setuptools"),
                         user=params.airflow_user)
-                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} secure-smtplib psycopg2-binary"),
+                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} secure-smtplib"),
                         user=params.airflow_user)
 
 		# Install Airflow
@@ -73,7 +73,6 @@ if $programname  == 'airflow-flower' then {airflow_log_dir}/flower.log
                     """)
                 )
 
-
 		# Initialize Airflow database
 		Execute(format("source ~/venv-airflow/bin/activate && airflow initdb"),
 			user=params.airflow_user)
@@ -83,7 +82,7 @@ if $programname  == 'airflow-flower' then {airflow_log_dir}/flower.log
 		env.set_params(params)
 		airflow_configure(env)
 		airflow_make_systemd_scripts_webserver(env)
-		
+
 	def start(self, env):
 		import params
 		self.configure(env)
@@ -96,8 +95,6 @@ if $programname  == 'airflow-flower' then {airflow_log_dir}/flower.log
 		Execute(('systemctl', 'start', 'airflow-flower'),
 		    sudo=True)
 
-
-
 	def stop(self, env):
 		import params
 		env.set_params(params)
@@ -109,7 +106,6 @@ if $programname  == 'airflow-flower' then {airflow_log_dir}/flower.log
 		    sudo=True)
 		Execute(('systemctl', 'disable', 'airflow-flower'),
 		    sudo=True)
-
 
 		File(params.airflow_webserver_pid_file,
 			action = "delete",

@@ -27,7 +27,7 @@ class AirflowWorker(Script):
 		# Install dependencies
                 Execute(format("source ~/venv-airflow/bin/activate && pip install --upgrade {airflow_pip_params} pip wheel setuptools"),
                         user=params.airflow_user)
-                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} secure-smtplib psycopg2-binary"),
+                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} secure-smtplib"),
                         user=params.airflow_user)
 
 		# Install Airflow
@@ -60,6 +60,17 @@ if $programname  == 'airflow-worker' then {airflow_log_dir}/worker.log
     rotate 7
     notifempty
 }}
+                    """)
+                )
+
+
+                # Add sudoer for run_as_user in DAGs
+                File("/etc/sudoers.d/airflow",
+                    mode=0644,
+                    owner=params.airflow_user,
+                    group=params.airflow_group,
+                    content=format("""
+{airflow_user}         ALL=(ALL)      NOPASSWD: ALL
                     """)
                 )
 

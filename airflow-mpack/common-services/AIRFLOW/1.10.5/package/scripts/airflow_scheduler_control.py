@@ -28,7 +28,7 @@ class AirflowScheduler(Script):
 		# Install dependencies
 		Execute(format("source ~/venv-airflow/bin/activate && pip install --upgrade {airflow_pip_params} pip wheel setuptools"),
 			user=params.airflow_user)
-		Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} secure-smtplib psycopg2-binary"),
+		Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} secure-smtplib"),
 			user=params.airflow_user)
 
 		# Install Airflow
@@ -96,11 +96,9 @@ if $programname  == 'airflow-scheduler' then {airflow_log_dir}/scheduler.log
 		Execute(('rabbitmqctl', 'add_user', params.airflow_user, 'runrabbitrun'),
 		    sudo=True,
 		    environment={'HOME': params.airflow_home})
-
 		Execute(('rabbitmqctl', 'add_vhost', 'airflow'),
 		    sudo=True,
 		    environment={'HOME': params.airflow_home})
-
 		Execute(('rabbitmqctl', 'set_user_tags', params.airflow_user, 'administrator'),
 		    sudo=True,
 		    environment={'HOME': params.airflow_home})
