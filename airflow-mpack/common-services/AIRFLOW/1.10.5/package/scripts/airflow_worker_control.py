@@ -70,7 +70,7 @@ if $programname  == 'airflow-worker' then {airflow_log_dir}/worker.log
                     owner=params.airflow_user,
                     group=params.airflow_group,
                     content=format("""
-{airflow_user}         ALL=(ALL)      NOPASSWD: ALL
+{airflow_user}         ALL=(%{airflow_group})      NOPASSWD: ALL
                     """)
                 )
 
