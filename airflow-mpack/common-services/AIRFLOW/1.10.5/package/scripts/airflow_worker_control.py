@@ -16,7 +16,11 @@ class AirflowWorker(Script):
 		self.install_packages(env)
 		Logger.info(format("Installing Airflow-worker Service"))
 
-                Execute(('useradd', '-m', format("{airflow_user}")),
+		# Add Airflow' group and user
+                Execute(('groupadd', format("{airflow_group}")),
+                    ignore_failures=True,
+                    sudo=True)
+                Execute(('useradd', '-m', '-g', format("{airflow_group}"), format("{airflow_user}")),
                     ignore_failures=True,
                     sudo=True)
 
@@ -63,7 +67,6 @@ if $programname  == 'airflow-worker' then {airflow_log_dir}/worker.log
                     """)
                 )
 
-
                 # Add sudoer for run_as_user in DAGs
                 File("/etc/sudoers.d/airflow",
                     mode=0644,
@@ -73,7 +76,6 @@ if $programname  == 'airflow-worker' then {airflow_log_dir}/worker.log
 {airflow_user}         ALL=(%{airflow_group})      NOPASSWD: ALL
                     """)
                 )
-
 
 		# Initialize Airflow database
 		Execute(format("source ~/venv-airflow/bin/activate && airflow initdb"),

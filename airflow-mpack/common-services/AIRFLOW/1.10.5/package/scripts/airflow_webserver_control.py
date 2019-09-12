@@ -16,7 +16,11 @@ class AirflowWebserver(Script):
 		self.install_packages(env)
 		Logger.info(format("Installing Airflow-webserver Service"))
 
-		Execute(('useradd', '-m', format("{airflow_user}")),
+                # Add Airflow' group and user
+                Execute(('groupadd', format("{airflow_group}")),
+                    ignore_failures=True,
+                    sudo=True)
+                Execute(('useradd', '-m', '-g', format("{airflow_group}"), format("{airflow_user}")),
                     ignore_failures=True,
                     sudo=True)
 
