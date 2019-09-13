@@ -43,6 +43,22 @@
 								<scriptType>PYTHON</scriptType>
 							</commandScript>
 						</customCommand>
+						<customCommand>
+							<name>Resetdb</name>
+							<background>false</background>
+							<commandScript>
+								<script>scripts/airflow_webserver_control.py</script>
+								<scriptType>PYTHON</scriptType>
+							</commandScript>
+						</customCommand>
+						<customCommand>
+							<name>Upgradedb</name>
+							<background>false</background>
+							<commandScript>
+								<script>scripts/airflow_webserver_control.py</script>
+								<scriptType>PYTHON</scriptType>
+							</commandScript>
+						</customCommand>
 					</customCommands>
 				</component>
 				<component>

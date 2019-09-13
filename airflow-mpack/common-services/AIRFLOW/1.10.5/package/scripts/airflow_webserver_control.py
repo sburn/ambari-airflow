@@ -128,5 +128,20 @@ if $programname  == 'airflow-flower' then {airflow_log_dir}/flower.log
 		Execute(format("source ~/venv-airflow/bin/activate && airflow initdb"),
 			user=params.airflow_user)
 
+	def resetdb(self, env):
+		import params
+		env.set_params(params)
+		self.configure(env)
+		Execute(format("source ~/venv-airflow/bin/activate && airflow resetdb -y"),
+			user=params.airflow_user)
+
+	def upgradedb(self, env):
+		import params
+		env.set_params(params)
+		self.configure(env)
+		Execute(format("source ~/venv-airflow/bin/activate && airflow upgradedb"),
+			user=params.airflow_user)
+
+
 if __name__ == "__main__":
 	AirflowWebserver().execute()
