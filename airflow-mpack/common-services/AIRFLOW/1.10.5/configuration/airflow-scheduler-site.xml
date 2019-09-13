@@ -20,103 +20,103 @@
   <property>
     <name>job_heartbeat_sec</name>
     <value>5</value>
-    <display-name>Job heartbeat sec</display-name>
+    <display-name>job_heartbeat_sec</display-name>
     <description>Task instances listen for external kill signal (when you clear tasks from the CLI or the UI), this defines the frequency at which they should listen (in seconds).</description>
   </property>
   <property>
     <name>scheduler_heartbeat_sec</name>
     <value>5</value>
-    <display-name>Scheduler heartbeat sec</display-name>
+    <display-name>scheduler_heartbeat_sec</display-name>
     <description>The scheduler constantly tries to trigger new tasks (look at the scheduler section in the docs for more information). This defines how often the scheduler should run (in seconds).</description>
   </property>
   <property>
     <name>run_duration</name>
     <value>-1</value>
-    <display-name>Run duration</display-name>
+    <display-name>run_duration</display-name>
     <description>After how much time should the scheduler terminate in seconds. -1 indicates to run continuously (see also num_runs).</description>
   </property>
   <property>
     <name>min_file_process_interval</name>
     <value>0</value>
-    <display-name>Min file process interval</display-name>
+    <display-name>min_file_process_interval</display-name>
     <description>After how much time a new DAGs should be picked up from the filesystem.</description>
   </property>
   <property>
     <name>min_file_parsing_loop_time</name>
     <value>1</value>
-    <display-name>Min file process loop time</display-name>
+    <display-name>min_file_process_loop_time</display-name>
     <description>How many seconds to wait between file-parsing loops to prevent the logs from being spammed.</description>
   </property>
   <property>
     <name>dag_dir_list_interval</name>
     <value>300</value>
-    <display-name>Dag dir list interval</display-name>
+    <display-name>dag_dir_list_interval</display-name>
     <description>Dag dir list interval.</description>
   </property>
   <property>
     <name>print_stats_interval</name>
     <value>30</value>
-    <display-name>Print stats interval</display-name>
+    <display-name>print_stats_interval</display-name>
     <description>How often should stats be printed to the logs.</description>
   </property>
   <property>
     <name>child_process_log_directory</name>
     <value>~/airflow/logs/scheduler</value>
-    <display-name>Child process log directory</display-name>
+    <display-name>child_process_log_directory</display-name>
     <description>Child process log directory.</description>
   </property>
   <property>
     <name>scheduler_zombie_task_threshold</name>
     <value>300</value>
-    <display-name>Scheduler zombie task threshold</display-name>
+    <display-name>scheduler_zombie_task_threshold</display-name>
     <description>Local task jobs periodically heartbeat to the DB. If the job has not heartbeat in this many seconds, the scheduler will mark the associated task instance as failed and will re-schedule the task.</description>
   </property>
   <property>
     <name>catchup_by_default</name>
     <value>True</value>
-    <display-name>Catchup by default</display-name>
+    <display-name>catchup_by_default</display-name>
     <description>Turn off scheduler catchup by setting this to False. Default behavior is unchanged and Command Line Backfills still work, but the scheduler will not do scheduler catchup if this is False, however it can be set on a per DAG basis in the DAG definition (catchup).</description>
   </property>
   <property>
     <name>max_tis_per_query</name>
     <value>0</value>
-    <display-name>Max tis per query</display-name>
+    <display-name>max_tis_per_query</display-name>
     <description>This changes the batch size of queries in the scheduling main loop. This depends on query length limits and how long you are willing to hold locks. 0 for no limit.</description>
   </property>
   <property>
     <name>statsd_on</name>
     <value>False</value>
-    <display-name>Statsd on</display-name>
+    <display-name>statsd_on</display-name>
     <description>Statsd (https://github.com/etsy/statsd) integration settings.</description>
   </property>
   <property>
     <name>statsd_host</name>
     <value>localhost</value>
-    <display-name>Statsd host</display-name>
+    <display-name>statsd_host</display-name>
     <description>Statsd (https://github.com/etsy/statsd) integration settings.</description>
   </property>
   <property>
     <name>statsd_port</name>
     <value>8125</value>
-    <display-name>Statsd port</display-name>
+    <display-name>statsd_port</display-name>
     <description>Statsd (https://github.com/etsy/statsd) integration settings.</description>
   </property>
   <property>
     <name>statsd_prefix</name>
     <value>airflow</value>
-    <display-name>Statsd prefix</display-name>
+    <display-name>statsd_prefix</display-name>
     <description>Statsd (https://github.com/etsy/statsd) integration settings.</description>
   </property>
   <property>
     <name>max_threads</name>
     <value>2</value>
-    <display-name>Max threads</display-name>
+    <display-name>max_threads</display-name>
     <description>The scheduler can run multiple threads in parallel to schedule dags. This defines how many threads will run.</description>
   </property>
   <property>
     <name>authenticate</name>
     <value>False</value>
-    <display-name>Authenticate</display-name>
+    <display-name>authenticate</display-name>
     <description>Authenticate.</description>
   </property>
 </configuration>

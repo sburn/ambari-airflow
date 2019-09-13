@@ -20,7 +20,7 @@
   <property>
     <name>api_rev</name>
     <value>v3</value>
-    <display-name>API rev</display-name>
-    <description>API rev.</description>
+    <display-name>api_rev</display-name>
+    <description>API revision.</description>
   </property>
 </configuration>

@@ -20,7 +20,7 @@
   <property>
     <name>default_hive_mapred_queue</name>
     <value></value>
-    <display-name>Default hive mapred queue</display-name>
+    <display-name>default_hive_mapred_queue</display-name>
     <description>Default mapreduce queue for HiveOperator tasks.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>

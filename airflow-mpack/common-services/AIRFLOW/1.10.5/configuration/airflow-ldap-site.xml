@@ -20,7 +20,7 @@
   <property>
     <name>uri</name>
     <value></value>
-    <display-name>URI</display-name>
+    <display-name>uri</display-name>
     <description>set this to ldaps://your.ldap.server:port.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -29,7 +29,7 @@
   <property>
     <name>user_filter</name>
     <value>objectClass=*</value>
-    <display-name>User filter</display-name>
+    <display-name>user_filter</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -38,7 +38,7 @@
   <property>
     <name>user_name_attr</name>
     <value>uid</value>
-    <display-name>User name attr</display-name>
+    <display-name>user_name_attr</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -47,7 +47,7 @@
   <property>
     <name>group_member_attr</name>
     <value>memberOf</value>
-    <display-name>Group member attr</display-name>
+    <display-name>group_member_attr</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -56,7 +56,7 @@
   <property>
     <name>superuser_filter</name>
     <value></value>
-    <display-name>Superuser filter</display-name>
+    <display-name>superuser_filter</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -65,7 +65,7 @@
   <property>
     <name>data_profiler_filter</name>
     <value></value>
-    <display-name>Data profiler filter</display-name>
+    <display-name>data_profiler_filter</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -74,7 +74,7 @@
   <property>
     <name>bind_user</name>
     <value>cn=Manager,dc=example,dc=com</value>
-    <display-name>Bind user</display-name>
+    <display-name>bind_user</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -83,7 +83,7 @@
   <property>
     <name>bind_password</name>
     <value>insecure</value>
-    <display-name>Bind password</display-name>
+    <display-name>bind_password</display-name>
     <description></description>
     <value-attributes>
       <type>password</type>
@@ -93,7 +93,7 @@
   <property>
     <name>basedn</name>
     <value>dc=example,dc=com</value>
-    <display-name>Basedn</display-name>
+    <display-name>basedn</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -102,7 +102,7 @@
   <property>
     <name>cacert</name>
     <value>/etc/ca/ldap_ca.crt</value>
-    <display-name>CA acert</display-name>
+    <display-name>cacert</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -111,7 +111,7 @@
   <property>
     <name>search_scope</name>
     <value>LEVEL</value>
-    <display-name>Search scope</display-name>
+    <display-name>search_scope</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>

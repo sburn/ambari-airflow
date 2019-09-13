@@ -20,13 +20,13 @@
   <property>
     <name>api_client</name>
     <value>airflow.api.client.local_client</value>
-    <display-name>API client</display-name>
+    <display-name>api_client</display-name>
     <description>In what way should the cli access the API. The LocalClient will use the database directly, while the json_client will use the api running on the webserver.</description>
   </property>
   <property>
     <name>endpoint_url</name>
-    <value>http://localhost:8080</value>
-    <display-name>Endpoint URL</display-name>
+    <value>http://{{hostname}}:8080</value>
+    <display-name>endpoint_URL</display-name>
     <description>Endpoint URL.</description>
   </property>
 </configuration>

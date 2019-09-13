@@ -20,7 +20,7 @@
   <property>
     <name>worker_container_repository</name>
     <value></value>
-    <display-name>Worker container repository</display-name>
+    <display-name>worker_container_repository</display-name>
     <description>The repository and tag of the Kubernetes Image for the Worker to Run.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -29,7 +29,7 @@
   <property>
     <name>worker_container_tag</name>
     <value></value>
-    <display-name>Worker container tag</display-name>
+    <display-name>worker_container_tag</display-name>
     <description>The repository and tag of the Kubernetes Image for the Worker to Run.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -38,19 +38,19 @@
   <property>
     <name>delete_worker_pods</name>
     <value>True</value>
-    <display-name>Delete worker pods</display-name>
+    <display-name>delete_worker_pods</display-name>
     <description>If True (default), worker pods will be deleted upon termination.</description>
   </property>
   <property>
     <name>namespace</name>
     <value>default</value>
-    <display-name>Namespace</display-name>
+    <display-name>namespace</display-name>
     <description>The Kubernetes namespace where airflow workers should be created. Defaults to `default`.</description>
   </property>
   <property>
     <name>airflow_configmap</name>
     <value></value>
-    <display-name>Airflow configmap</display-name>
+    <display-name>airflow_configmap</display-name>
     <description>The name of the Kubernetes ConfigMap Containing the Airflow Configuration (this file).</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -59,7 +59,7 @@
   <property>
     <name>dags_volume_subpath</name>
     <value></value>
-    <display-name>DAGs volume subpath</display-name>
+    <display-name>dags_volume_subpath</display-name>
     <description>For either git sync or volume mounted DAGs, the worker will look in this subpath for DAGs.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -68,7 +68,7 @@
   <property>
     <name>dags_volume_claim</name>
     <value></value>
-    <display-name>DAGs volume claim</display-name>
+    <display-name>dags_volume_claim</display-name>
     <description>For DAGs mounted via a volume claim (mutually exclusive with volume claim).</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -77,7 +77,7 @@
   <property>
     <name>logs_volume_subpath</name>
     <value></value>
-    <display-name>Logs volume subpath</display-name>
+    <display-name>logs_volume_subpath</display-name>
     <description>For volume mounted logs, the worker will look in this subpath for logs.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -86,7 +86,7 @@
   <property>
     <name>logs_volume_claim</name>
     <value></value>
-    <display-name>Logs volume claim</display-name>
+    <display-name>logs_volume_claim</display-name>
     <description>A shared volume claim for the logs.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -95,7 +95,7 @@
   <property>
     <name>git_repo</name>
     <value></value>
-    <display-name>Git repo</display-name>
+    <display-name>git_repo</display-name>
     <description>Git credentials and repository for DAGs mounted via Git (mutually exclusive with volume claim).</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -104,7 +104,7 @@
   <property>
     <name>git_branch</name>
     <value></value>
-    <display-name>Git branch</display-name>
+    <display-name>git_branch</display-name>
     <description>Git credentials and repository for DAGs mounted via Git (mutually exclusive with volume claim).</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -113,7 +113,7 @@
   <property>
     <name>git_user</name>
     <value></value>
-    <display-name>Git user</display-name>
+    <display-name>git_user</display-name>
     <description>Git credentials and repository for DAGs mounted via Git (mutually exclusive with volume claim).</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -122,7 +122,7 @@
   <property>
     <name>git_password</name>
     <value></value>
-    <display-name>Git password</display-name>
+    <display-name>git_password</display-name>
     <description>Git credentials and repository for DAGs mounted via Git (mutually exclusive with volume claim).</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -131,7 +131,7 @@
   <property>
     <name>git_subpath</name>
     <value></value>
-    <display-name>Git subpath</display-name>
+    <display-name>git_subpath</display-name>
     <description>Git credentials and repository for DAGs mounted via Git (mutually exclusive with volume claim).</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -140,25 +140,25 @@
   <property>
     <name>git_sync_container_repository</name>
     <value>gcr.io/google-containers/git-sync-amd64</value>
-    <display-name>Git sync container repository</display-name>
+    <display-name>git_sync_container_repository</display-name>
     <description>For cloning DAGs from git repositories into volumes: https://github.com/kubernetes/git-sync</description>
   </property>
   <property>
     <name>git_sync_container_tag</name>
     <value>v2.0.5</value>
-    <display-name>Git sync container tag</display-name>
+    <display-name>git_sync_container_tag</display-name>
     <description>For cloning DAGs from git repositories into volumes: https://github.com/kubernetes/git-sync</description>
   </property>
   <property>
     <name>git_sync_init_container_name</name>
     <value>git-sync-clone</value>
-    <display-name>Git sync init container name</display-name>
+    <display-name>git_sync_init_container_name</display-name>
     <description>For cloning DAGs from git repositories into volumes: https://github.com/kubernetes/git-sync</description>
   </property>
   <property>
     <name>worker_service_account_name</name>
     <value></value>
-    <display-name>Worker service account name</display-name>
+    <display-name>worker_service_account_name</display-name>
     <description>The name of the Kubernetes service account to be associated with airflow workers, if any. Service accounts are required for workers that require access to secrets or cluster resources. See the Kubernetes RBAC documentation for more: https://kubernetes.io/docs/admin/authorization/rbac/</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -167,7 +167,7 @@
   <property>
     <name>image_pull_secrets</name>
     <value></value>
-    <display-name>Image pull secrets</display-name>
+    <display-name>image_pull_secrets</display-name>
     <description>Any image pull secrets to be given to worker pods, If more than one secret is required, provide a comma separated list: secret_a,secret_b</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -176,7 +176,7 @@
   <property>
     <name>gcp_service_account_keys</name>
     <value></value>
-    <display-name>GCP service_account keys</display-name>
+    <display-name>gcp_service_account_keys</display-name>
     <description>GCP Service Account Keys to be provided to tasks run on Kubernetes Executors. Should be supplied in the format: key-name-1:key-path-1,key-name-2:key-path-2</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -185,7 +185,7 @@
   <property>
     <name>in_cluster</name>
     <value>True</value>
-    <display-name>In cluster</display-name>
+    <display-name>in_cluster</display-name>
     <description>Use the service account kubernetes gives to pods to connect to kubernetes cluster. It's intended for clients that expect to be running inside a pod running on kubernetes. It will raise an exception if called from a process not running in a kubernetes environment.</description>
   </property>
 </configuration>

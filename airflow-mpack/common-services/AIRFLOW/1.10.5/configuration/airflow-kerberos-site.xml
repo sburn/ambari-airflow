@@ -20,31 +20,31 @@
   <property>
     <name>ccache</name>
     <value>/tmp/airflow_krb5_ccache</value>
-    <display-name>Ccache</display-name>
+    <display-name>ccache</display-name>
     <description></description>
   </property>
   <property>
     <name>principal</name>
     <value>airflow</value>
-    <display-name>Principal</display-name>
+    <display-name>principal</display-name>
     <description></description>
   </property>
   <property>
     <name>reinit_frequency</name>
     <value>3600</value>
-    <display-name>Reinit frequency</display-name>
+    <display-name>reinit_frequency</display-name>
     <description></description>
   </property>
   <property>
     <name>kinit_path</name>
     <value>kinit</value>
-    <display-name>Kerberos kinit path</display-name>
+    <display-name>kinit_path</display-name>
     <description></description>
   </property>
   <property>
     <name>keytab</name>
     <value>airflow.keytab</value>
-    <display-name>Keytab</display-name>
+    <display-name>keytab</display-name>
     <description></description>
   </property>
 </configuration>

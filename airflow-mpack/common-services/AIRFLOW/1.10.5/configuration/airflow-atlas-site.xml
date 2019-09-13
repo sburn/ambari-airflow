@@ -20,13 +20,13 @@
   <property>
     <name>sasl_enabled</name>
     <value>False</value>
-    <display-name>Sasl enabled</display-name>
+    <display-name>sasl_enabled</display-name>
     <description></description>
   </property>
   <property>
     <name>host</name>
     <value></value>
-    <display-name>Host</display-name>
+    <display-name>host</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -35,13 +35,13 @@
   <property>
     <name>port</name>
     <value>21000</value>
-    <display-name>Port</display-name>
+    <display-name>port</display-name>
     <description></description>
   </property>
   <property>
     <name>username</name>
     <value></value>
-    <display-name>Username</display-name>
+    <display-name>username</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -50,7 +50,7 @@
   <property>
     <name>password</name>
     <value></value>
-    <display-name>Password</display-name>
+    <display-name>password</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>

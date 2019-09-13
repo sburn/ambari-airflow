@@ -20,7 +20,7 @@
   <property>
     <name>email_backend</name>
     <value>airflow.utils.email.send_email_smtp</value>
-    <display-name>Email backend</display-name>
+    <display-name>email_backend</display-name>
     <description>Email backend.</description>
   </property>
 </configuration>

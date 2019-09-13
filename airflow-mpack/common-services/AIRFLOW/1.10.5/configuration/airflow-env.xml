@@ -70,8 +70,8 @@
   <property>
     <name>airflow_pip_params</name>
     <value></value>
-    <display-name>Advanced pip installation parameters</display-name>
-    <description>Advanced parameters for pip cmd, e.g.: --no-index --find-links=http://reposerver.local/pip-apache-airflow-1.10.5 --trusted-host=reposerver.local</description>
+    <display-name>pip advanced parameters</display-name>
+    <description>Advanced parameters for pip cmd installing Airflow, e.g.: -r http://reposerver.lan/bundle-apache-airflow-1.10.5/requirements.txt --no-deps --no-index --find-links=http://reposerver.lan/bundle-apache-airflow-1.10.5 --trusted-host=reposerver.lan</description>
     <value-attributes>
       <value></value>
       <overridable>true</overridable>

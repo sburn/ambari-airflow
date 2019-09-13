@@ -19,32 +19,32 @@
   <!--Configuration options for user authentication into the web application-->
   <property>
     <name>default_owner</name>
-    <value>Airflow</value>
-    <display-name>Default owner</display-name>
+    <value>airflow</value>
+    <display-name>default_owner</display-name>
     <description>The default owner assigned to each new operator, unless provided explicitly or passed via `default_args`.</description>
   </property>
   <property>
     <name>default_cpus</name>
     <value>1</value>
-    <display-name>Default cpus</display-name>
+    <display-name>default_cpus</display-name>
     <description>Default cpus.</description>
   </property>
   <property>
     <name>default_ram</name>
     <value>512</value>
-    <display-name>Default ram</display-name>
+    <display-name>default_ram</display-name>
     <description>Default ram.</description>
   </property>
   <property>
     <name>default_disk</name>
     <value>512</value>
-    <display-name>Default disk</display-name>
+    <display-name>default_disk</display-name>
     <description>Default disk.</description>
   </property>
   <property>
     <name>default_gpus</name>
     <value>0</value>
-    <display-name>Default gpus</display-name>
+    <display-name>default_gpus</display-name>
     <description>Default gpus.</description>
   </property>
 </configuration>

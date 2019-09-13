@@ -20,7 +20,7 @@
   <property>
     <name>hide_sensitive_variable_fields</name>
     <value>True</value>
-    <display-name>Hide sensitive variable fields</display-name>
+    <display-name>hide_sensitive_variable_fields</display-name>
     <description>UI to hide sensitive variable fields when set to True.</description>
   </property>
 </configuration>

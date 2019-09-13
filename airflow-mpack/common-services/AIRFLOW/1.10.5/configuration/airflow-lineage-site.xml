@@ -20,7 +20,7 @@
   <property>
     <name>backend</name>
     <value></value>
-    <display-name>Backend</display-name>
+    <display-name>backend</display-name>
     <description>What lineage backend to use.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>

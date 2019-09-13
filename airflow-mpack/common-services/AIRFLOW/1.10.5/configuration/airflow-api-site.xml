@@ -20,7 +20,7 @@
   <property>
     <name>auth_backend</name>
     <value>airflow.api.auth.backend.default</value>
-    <display-name>Auth backend</display-name>
+    <display-name>auth_backend</display-name>
     <description>How to authenticate users of the API.</description>
   </property>
 </configuration>

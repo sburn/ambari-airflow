@@ -20,13 +20,13 @@
   <property>
     <name>cluster_address</name>
     <value>127.0.0.1:8786</value>
-    <display-name>Cluster address</display-name>
+    <display-name>cluster_address</display-name>
     <description>The IP address and port of the Dask cluster's scheduler.</description>
   </property>
   <property>
     <name>tls_ca</name>
     <value></value>
-    <display-name>TLS CA</display-name>
+    <display-name>tls_ca</display-name>
     <description>TLS/ SSL settings to access a secured Dask scheduler.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -35,7 +35,7 @@
   <property>
     <name>tls_cert</name>
     <value></value>
-    <display-name>TLS cert</display-name>
+    <display-name>tls_cert</display-name>
     <description>TLS/ SSL settings to access a secured Dask scheduler.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -44,7 +44,7 @@
   <property>
     <name>tls_key</name>
     <value></value>
-    <display-name>TLS key</display-name>
+    <display-name>tls_key</display-name>
     <description>TLS/ SSL settings to access a secured Dask scheduler.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>

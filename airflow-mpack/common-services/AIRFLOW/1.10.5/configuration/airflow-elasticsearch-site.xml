@@ -20,7 +20,7 @@
   <property>
     <name>host</name>
     <value></value>
-    <display-name>Elasticsearch host</display-name>
+    <display-name>host</display-name>
     <description></description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -29,13 +29,13 @@
   <property>
     <name>log_id_template</name>
     <value>{dag_id}-{task_id}-{execution_date}-{try_number}</value>
-    <display-name>Elasticsearch log id template</display-name>
+    <display-name>log_id_template</display-name>
     <description>We need to escape the curly braces by adding an additional curly brace.</description>
   </property>
   <property>
     <name>end_of_log_mark</name>
     <value>end_of_log</value>
-    <display-name>Elasticsearch end of log mark</display-name>
+    <display-name>end_of_log_mark</display-name>
     <description></description>
   </property>
 </configuration>

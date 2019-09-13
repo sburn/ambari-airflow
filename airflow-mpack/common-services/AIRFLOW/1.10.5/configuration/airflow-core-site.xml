@@ -27,25 +27,25 @@
   <property>
     <name>dags_folder</name>
     <value>~/airflow/dags</value>
-    <display-name>Dags folder</display-name>
+    <display-name>dags_folder</display-name>
     <description>The folder where your airflow pipelines live, most likely a subfolder in a code repository.</description>
   </property>
   <property>
     <name>base_log_folder</name>
     <value>~/airflow/logs</value>
-    <display-name>Base log folder</display-name>
+    <display-name>base_log_folder</display-name>
     <description>The folder where airflow should store its log files.</description>
   </property>
   <property>
     <name>remote_logging</name>
     <value>False</value>
-    <display-name>Remote logging</display-name>
+    <display-name>remote_logging</display-name>
     <description>If remote_logging is set to true, see UPDATING.md for additional configuration requirements.</description>
   </property>
   <property>
     <name>remote_log_conn_id</name>
     <value></value>
-    <display-name>Remote log connection id</display-name>
+    <display-name>remote_log_conn_id</display-name>
     <description>Airflow can store logs remotely in AWS S3 or Google Cloud Storage. Users must supply an Airflow connection id that provides access to the storage location.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -54,7 +54,7 @@
   <property>
     <name>remote_base_log_folder</name>
     <value></value>
-    <display-name>Remote base log folder</display-name>
+    <display-name>remote_base_log_folder</display-name>
     <description>Airflow can store logs remotely in AWS S3 or Google Cloud Storage. Users must supply an Airflow connection id that provides access to the storage location.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -63,25 +63,25 @@
   <property>
     <name>encrypt_s3_logs</name>
     <value>False</value>
-    <display-name>Encrypt S3 logs</display-name>
-    <description>Encrypt S3 logs.</description>
+    <display-name>encrypt_s3_logs</display-name>
+    <description>Use server-side encryption for logs stored in S3.</description>
   </property>
   <property>
     <name>logging_level</name>
     <value>INFO</value>
-    <display-name>Logging level</display-name>
-    <description>Logging level.</description>
+    <display-name>logging_level</display-name>
+    <description>Airflow logging level.</description>
   </property>
   <property>
     <name>fab_logging_level</name>
     <value>WARN</value>
-    <display-name>Fab logging level</display-name>
+    <display-name>fab_logging_level</display-name>
     <description>Fab logging level.</description>
   </property>
   <property>
     <name>logging_config_class</name>
     <value></value>
-    <display-name>Logging class</display-name>
+    <display-name>logging_config_class</display-name>
     <description>Specify the class that will specify the logging configuration. This class has to be on the python classpath. logging_config_class = my.path.default_local_settings.LOGGING_CONFIG</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -90,49 +90,49 @@
   <property>
     <name>log_format</name>
     <value>[%%(asctime)s] {%%(filename)s:%%(lineno)d} %%(levelname)s - %%(message)s</value>
-    <display-name>Log format</display-name>
+    <display-name>log_format</display-name>
     <description>Log format.</description>
   </property>
   <property>
     <name>simple_log_format</name>
     <value>%%(asctime)s %%(levelname)s - %%(message)s</value>
-    <display-name>Simple log format</display-name>
+    <display-name>simple_log_format</display-name>
     <description>Simple log format.</description>
   </property>
     <property>
     <name>log_filename_template</name>
     <value>{{ ti.dag_id }}/{{ ti.task_id }}/{{ ts }}/{{ try_number }}.log</value>
-    <display-name>Log filename format</display-name>
+    <display-name>log_filename_template</display-name>
     <description>We need to escape the curly braces by adding an additional curly brace.</description>
   </property>
     <property>
     <name>log_processor_filename_template</name>
     <value>{{ filename }}.log</value>
-    <display-name>Log processor filename template</display-name>
+    <display-name>log_processor_filename_template</display-name>
     <description>We need to escape the curly braces by adding an additional curly brace.</description>
   </property>
     <property>
     <name>hostname_callable</name>
     <value>socket:getfqdn</value>
-    <display-name>Hostname callable</display-name>
+    <display-name>hostname_callable</display-name>
     <description>Hostname by providing a path to a callable, which will resolve the hostname.</description>
   </property>
     <property>
     <name>default_timezone</name>
-    <value>utc</value>
-    <display-name>Default timezone</display-name>
+    <value>UTC</value>
+    <display-name>default_timezone</display-name>
     <description>Default timezone in case supplied date times are naive. Can be utc (default), system, or any IANA timezone string (e.g. Europe/Amsterdam).</description>
   </property>
   <property>
     <name>executor</name>
     <value>CeleryExecutor</value>
-    <display-name>Executor</display-name>
+    <display-name>executor</display-name>
     <description>The executor class that airflow should use. Choices include SequentialExecutor, LocalExecutor, CeleryExecutor, DaskExecutor.</description>
   </property>
   <property>
     <name>sql_alchemy_schema</name>
     <value></value>
-    <display-name>SQL alchemy schema</display-name>
+    <display-name>sql_alchemy_schema</display-name>
     <description>The schema to use for the metadata database. SqlAlchemy supports databases with the concept of multiple schemas.</description>
    <value-attributes>
       <value></value>
@@ -144,103 +144,103 @@
   <property>
     <name>sql_alchemy_conn</name>
     <value>sqlite:////tmp/airflow.db</value>
-    <display-name>SQL alchemy connection</display-name>
+    <display-name>sql_alchemy_conn</display-name>
     <description>The SqlAlchemy connection string to the metadata database. SqlAlchemy supports many different database engine, more information their website, ex: postgresql+psycopg2://airflow:airflow@localhost/airflow</description>
   </property>
   <property>
     <name>sql_alchemy_pool_enabled</name>
     <value>True</value>
-    <display-name>SQL alchemy pool enabled</display-name>
+    <display-name>sql_alchemy_pool_enabled</display-name>
     <description>If SqlAlchemy should pool database connections.</description>
   </property>
   <property>
     <name>sql_alchemy_pool_size</name>
     <value>5</value>
-    <display-name>SQL alchemy pool size</display-name>
+    <display-name>sql_alchemy_pool_size</display-name>
     <description>The SqlAlchemy pool size is the maximum number of database connections in the pool.</description>
   </property>
   <property>
     <name>sql_alchemy_pool_recycle</name>
     <value>3600</value>
-    <display-name>SQL alchemy pool recycle</display-name>
+    <display-name>sql_alchemy_pool_recycle</display-name>
     <description>The SqlAlchemy pool recycle is the number of seconds a connection can be idle in the pool before it is invalidated. This config does not apply to sqlite.</description>
   </property>
   <property>
     <name>sql_alchemy_reconnect_timeout</name>
     <value>300</value>
-    <display-name>SQL alchemy pool timeout</display-name>
+    <display-name>sql_alchemy_reconnect_timeout</display-name>
     <description>How many seconds to retry re-establishing a DB connection after disconnects. Setting this to 0 disables retries.</description>
   </property>
   <property>
     <name>parallelism</name>
     <value>32</value>
-    <display-name>Parallelism</display-name>
+    <display-name>parallelism</display-name>
     <description>The amount of parallelism as a setting to the executor. This defines the max number of task instances that should run simultaneously on this airflow installation.</description>
   </property>
   <property>
     <name>dag_concurrency</name>
     <value>16</value>
-    <display-name>Dag concurrency</display-name>
+    <display-name>dag_concurrency</display-name>
     <description>The number of task instances allowed to run concurrently by the scheduler.</description>
   </property>
   <property>
     <name>dags_are_paused_at_creation</name>
     <value>True</value>
-    <display-name>Dags are paused at creation</display-name>
+    <display-name>dags_are_paused_at_creation</display-name>
     <description>Are DAGs paused by default at creation.</description>
   </property>
   <property>
     <name>non_pooled_task_slot_count</name>
     <value>128</value>
-    <display-name>Non pooled task slot count</display-name>
+    <display-name>non_pooled_task_slot_count</display-name>
     <description>When not using pools, tasks are run in the "default pool", whose size is guided by this config element.</description>
   </property>
   <property>
     <name>max_active_runs_per_dag</name>
     <value>16</value>
-    <display-name>Max active runs per dag</display-name>
+    <display-name>max_active_runs_per_dag</display-name>
     <description>The maximum number of active DAG runs per DAG.</description>
   </property>
   <property>
     <name>load_examples</name>
     <value>True</value>
-    <display-name>Load examples</display-name>
+    <display-name>load_examples</display-name>
     <description>Whether to load the examples that ship with Airflow. It's good to get started, but you probably want to set this to False in a production environment.</description>
   </property>
   <property>
     <name>plugins_folder</name>
     <value>~/airflow/plugins</value>
-    <display-name>Plugins folder</display-name>
+    <display-name>plugins_folder</display-name>
     <description>Where your Airflow plugins are stored.</description>
   </property>
   <property>
     <name>fernet_key</name>
     <value>mMGXRdfFpdUZDYmt8Ur1xVmspyOkYKtBlkv91dB8SVs=</value>
-    <display-name>Fernet key</display-name>
+    <display-name>fernet_key</display-name>
     <description>Secret key to save connection passwords in the db.</description>
   </property>
   <property>
     <name>donot_pickle</name>
     <value>False</value>
-    <display-name>Do not pickle</display-name>
+    <display-name>donot_pickle</display-name>
     <description>Whether to disable pickling dags.</description>
   </property>
   <property>
     <name>dagbag_import_timeout</name>
     <value>30</value>
-    <display-name>DagBag import timeout</display-name>
+    <display-name>dagbag_import_timeout</display-name>
     <description>How long before timing out a python file import while filling the DagBag.</description>
   </property>
   <property>
     <name>task_runner</name>
     <value>StandardTaskRunner</value>
-    <display-name>Task runner</display-name>
+    <display-name>task_runner</display-name>
     <description>The class to use for running task instances in a subprocess.</description>
   </property>
   <property>
     <name>default_impersonation</name>
     <value></value>
-    <display-name>Default impersonation</display-name>
+    <display-name>default_impersonation</display-name>
     <description>If set, tasks without a `run_as_user` argument will be run with this user. Can be used to de-elevate a sudo user running Airflow when executing tasks.</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -249,7 +249,7 @@
   <property>
     <name>security</name>
     <value></value>
-    <display-name>Security</display-name>
+    <display-name>security</display-name>
     <description>What security module to use (for example kerberos).</description>
     <value-attributes>
       <empty-value-valid>true</empty-value-valid>
@@ -258,37 +258,37 @@
   <property>
     <name>secure_mode</name>
     <value>False</value>
-    <display-name>Secure mode</display-name>
+    <display-name>secure_mode</display-name>
     <description>If set to False enables some unsecure features like Charts and Ad Hoc Queries. In 2.0 will default to True.</description>
   </property>
   <property>
     <name>unit_test_mode</name>
     <value>False</value>
-    <display-name>Unit test mode</display-name>
+    <display-name>unit_test_mode</display-name>
     <description>Turn unit test mode on (overwrites many configuration options with test values at runtime).</description>
   </property>
   <property>
     <name>task_log_reader</name>
     <value>task</value>
-    <display-name>Task log reader</display-name>
+    <display-name>task_log_reader</display-name>
     <description>Name of handler to read task instance logs. Default to use file task handler.</description>
   </property>
   <property>
     <name>enable_xcom_pickling</name>
     <value>True</value>
-    <display-name>Enable xcom pickling</display-name>
+    <display-name>enable_xcom_pickling</display-name>
     <description>Whether to enable pickling for xcom (note that this is insecure and allows for RCE exploits). This will be deprecated in Airflow 2.0 (be forced to False).</description>
   </property>
   <property>
     <name>killed_task_cleanup_time</name>
     <value>60</value>
-    <display-name>Killed task cleanup time</display-name>
+    <display-name>killed_task_cleanup_time</display-name>
     <description>When a task is killed forcefully, this is the amount of time in seconds that it has to cleanup after it is sent a SIGTERM, before it is SIGKILLED.</description>
   </property>
   <property>
     <name>dag_run_conf_overrides_params</name>
     <value>False</value>
-    <display-name>DAG run conf overrides params</display-name>
+    <display-name>dag_run_conf_overrides_params</display-name>
     <description>Whether to override params with dag_run.conf. If you pass some key-value pairs through `airflow backfill -c` or `airflow trigger_dag -c`, the key-value pairs will override the existing ones in params.</description>
   </property>
 </configuration>
