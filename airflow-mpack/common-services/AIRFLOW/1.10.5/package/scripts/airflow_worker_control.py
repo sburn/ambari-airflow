@@ -70,8 +70,8 @@ if $programname  == 'airflow-worker' then {airflow_log_dir}/worker.log
                 # Add sudoer for run_as_user in DAGs
                 File("/etc/sudoers.d/airflow",
                     mode=0644,
-                    owner=params.airflow_user,
-                    group=params.airflow_group,
+                    owner='root',
+                    group='root',
                     content=format("""
 {airflow_user}         ALL=(%{airflow_group})      NOPASSWD: ALL
                     """)
