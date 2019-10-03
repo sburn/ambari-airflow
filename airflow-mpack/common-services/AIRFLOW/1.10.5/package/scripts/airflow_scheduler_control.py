@@ -24,19 +24,15 @@ class AirflowScheduler(Script):
                     ignore_failures=True,
                     sudo=True)
 
-		# Create virtualenv
-		Execute('virtualenv -p python3 --clear ~/venv-airflow',
-			user=params.airflow_user)
-
-		# Install dependencies
-		Execute(format("source ~/venv-airflow/bin/activate && pip install --upgrade {airflow_pip_params} pip wheel setuptools"),
-			user=params.airflow_user)
-		Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} secure-smtplib"),
-			user=params.airflow_user)
+		# Install Airflow dependencies
+		Execute(('python3', '-m', 'pip', 'install', '--upgrade', format('{airflow_pip_params}'), 'pip', 'wheel', 'setuptools'),
+			sudo=True)
+		Execute(('python3', '-m', 'pip', 'install', format('{airflow_pip_params}'), 'secure-smtplib'),
+			sudo=True)
 
 		# Install Airflow
-		Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} apache-airflow[all]==1.10.5"),
-			user=params.airflow_user)
+		Execute(('python3', '-m', 'pip', 'install', format('{airflow_pip_params}'), 'apache-airflow[all]==1.10.5'),
+			sudo=True)
 
 		# Add syslog and apply
 		File("/etc/rsyslog.d/airflow-scheduler.conf",
@@ -46,8 +42,7 @@ class AirflowScheduler(Script):
 		    content=format("""
 if $programname  == 'airflow-scheduler' then {airflow_log_dir}/scheduler.log
 & stop
-		    """)
-		)
+"""))
 		Execute(('systemctl', 'restart', 'rsyslog'),
 		    sudo=True)
 
@@ -65,13 +60,12 @@ if $programname  == 'airflow-scheduler' then {airflow_log_dir}/scheduler.log
     rotate 7
     notifempty
 }}
-		    """)
-		)
+		    """))
 
 		# Initialize Airflow database
-		Execute('source ~/venv-airflow/bin/activate && airflow initdb',
-			user=params.airflow_user)
-
+		Execute('/usr/local/bin/airflow initdb',
+			user=params.airflow_user,
+			environment={'AIRFLOW_HOME': params.airflow_home})
 
 		Logger.info('Setting up Rabbitmq-server')
 

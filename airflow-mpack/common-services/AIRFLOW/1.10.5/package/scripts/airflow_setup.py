@@ -23,8 +23,9 @@ Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 [Service]
 User={airflow_user}
 Group={airflow_group}
-Type=forking
-ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow scheduler -D --pid {airflow_scheduler_pid_file} --stderr {airflow_log_dir}/scheduler-err.log --stdout {airflow_log_dir}/scheduler-out.log -l {airflow_log_dir}/scheduler-log.log"
+Environment="AIRFLOW_HOME={airflow_home}"
+Type=simple
+ExecStart=/usr/local/bin/airflow scheduler -D --pid {airflow_scheduler_pid_file} --stderr {airflow_log_dir}/scheduler-err.log --stdout {airflow_log_dir}/scheduler-out.log -l {airflow_log_dir}/scheduler-log.log"
 PIDFile={airflow_scheduler_pid_file}
 Restart=on-failure
 RestartSec=5s
@@ -61,8 +62,9 @@ Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 [Service]
 User={airflow_user}
 Group={airflow_group}
-Type=forking
-ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow webserver -D --pid {airflow_webserver_pid_file} --stderr {airflow_log_dir}/webserver-err.log --stdout {airflow_log_dir}/webserver-out.log -l {airflow_log_dir}/webserver-log.log"
+Environment="AIRFLOW_HOME={airflow_home}"
+Type=simple
+ExecStart=/usr/local/bin/airflow webserver -D --pid {airflow_webserver_pid_file} --stderr {airflow_log_dir}/webserver-err.log --stdout {airflow_log_dir}/webserver-out.log -l {airflow_log_dir}/webserver-log.log"
 PIDFile={airflow_webserver_pid_file}
 Restart=on-failure
 RestartSec=5s
@@ -90,8 +92,9 @@ Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 [Service]
 User={airflow_user}
 Group={airflow_group}
-Type=forking
-ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow flower -D --pid {airflow_flower_pid_file} --stderr {airflow_log_dir}/flower-err.log --stdout {airflow_log_dir}/flower-out.log -l {airflow_log_dir}/flower-log.log"
+Environment="AIRFLOW_HOME={airflow_home}"
+Type=simple
+ExecStart=/usr/local/bin/airflow flower -D --pid {airflow_flower_pid_file} --stderr {airflow_log_dir}/flower-err.log --stdout {airflow_log_dir}/flower-out.log -l {airflow_log_dir}/flower-log.log"
 PIDFile={airflow_flower_pid_file}
 Restart=on-failure
 RestartSec=5s
@@ -128,8 +131,9 @@ Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 [Service]
 User={airflow_user}
 Group={airflow_group}
-Type=forking
-ExecStart=/bin/bash -c "source ~/venv-airflow/bin/activate && airflow worker -D --pid {airflow_worker_pid_file} --stderr {airflow_log_dir}/worker-err.log --stdout {airflow_log_dir}/worker-out.log -l {airflow_log_dir}/worker-log.log"
+Environment="AIRFLOW_HOME={airflow_home}"
+Type=simple
+ExecStart=/usr/local/bin/airflow worker -D --pid {airflow_worker_pid_file} --stderr {airflow_log_dir}/worker-err.log --stdout {airflow_log_dir}/worker-out.log -l {airflow_log_dir}/worker-log.log"
 PIDFile={airflow_worker_pid_file}
 Restart=on-failure
 RestartSec=5s
@@ -231,5 +235,4 @@ def airflow_configure(env):
 	    group=params.airflow_group,
 	    content=airflow_config_file
 	)
-
 

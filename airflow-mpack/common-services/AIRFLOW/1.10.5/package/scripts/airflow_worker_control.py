@@ -24,19 +24,16 @@ class AirflowWorker(Script):
                     ignore_failures=True,
                     sudo=True)
 
-		# Create virtualenv
-                Execute(format("virtualenv -p python3 --clear ~/venv-airflow"),
-                        user=params.airflow_user)
-
-		# Install dependencies
-                Execute(format("source ~/venv-airflow/bin/activate && pip install --upgrade {airflow_pip_params} pip wheel setuptools"),
-                        user=params.airflow_user)
-                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} secure-smtplib"),
-                        user=params.airflow_user)
+		# Install Airflow dependencies
+		Execute(('python3', '-m', 'pip', 'install', '--upgrade', format('{airflow_pip_params}'), 'pip', 'wheel', 'setuptools'),
+		    sudo=True)
+		Execute(('python3', '-m', 'pip', 'install', format('{airflow_pip_params}'), 'secure-smtplib'),
+		    sudo=True)
 
 		# Install Airflow
-                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} apache-airflow[all]==1.10.5"),
-                        user=params.airflow_user)
+		Execute(('python3', '-m', 'pip', 'install', format('{airflow_pip_params}'), 'apache-airflow[all]==1.10.5'),
+		    sudo=True)
+
 
                 File("/etc/rsyslog.d/airflow-worker.conf",
                     mode=0644,
@@ -78,8 +75,9 @@ if $programname  == 'airflow-worker' then {airflow_log_dir}/worker.log
                 )
 
 		# Initialize Airflow database
-		Execute(format("source ~/venv-airflow/bin/activate && airflow initdb"),
-			user=params.airflow_user)
+		Execute("/usr/local/bin/airflow initdb",
+			user=params.airflow_user,
+			environment={'AIRFLOW_HOME': params.airflow_home})
 
 	def configure(self, env):
 		import params

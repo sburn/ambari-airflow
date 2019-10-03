@@ -24,19 +24,23 @@ class AirflowWebserver(Script):
                     ignore_failures=True,
                     sudo=True)
 
-		# Create virtualenv
-                Execute(format("virtualenv -p python3 --clear ~/venv-airflow"),
-                        user=params.airflow_user)
+                # Add Airflow' group and user
+                Execute(('groupadd', format("{airflow_group}")),
+                    ignore_failures=True,
+                    sudo=True)
+                Execute(('useradd', '-m', '-g', format("{airflow_group}"), format("{airflow_user}")),
+                    ignore_failures=True,
+                    sudo=True)
 
-		# Install dependencies
-                Execute(format("source ~/venv-airflow/bin/activate && pip install --upgrade {airflow_pip_params} pip wheel setuptools"),
-                        user=params.airflow_user)
-                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} secure-smtplib"),
-                        user=params.airflow_user)
+		# Install Airflow dependencies
+		Execute(('python3', '-m', 'pip', 'install', '--upgrade', format('{airflow_pip_params}'), 'pip', 'wheel', 'setuptools'),
+		    sudo=True)
+		Execute(('python3', '-m', 'pip', 'install', format('{airflow_pip_params}'), 'secure-smtplib'),
+		    sudo=True)
 
 		# Install Airflow
-                Execute(format("source ~/venv-airflow/bin/activate && pip install {airflow_pip_params} apache-airflow[all]==1.10.5"),
-                        user=params.airflow_user)
+		Execute(('python3', '-m', 'pip', 'install', format('{airflow_pip_params}'), 'apache-airflow[all]==1.10.5'),
+		    sudo=True)
 
                 File("/etc/rsyslog.d/airflow-webserver.conf",
                     mode=0644,
@@ -78,8 +82,9 @@ if $programname  == 'airflow-flower' then {airflow_log_dir}/flower.log
                 )
 
 		# Initialize Airflow database
-		Execute(format("source ~/venv-airflow/bin/activate && airflow initdb"),
-			user=params.airflow_user)
+		Execute('/usr/local/bin/airflow initdb'),
+			user=params.airflow_user,
+			environment={'AIRFLOW_HOME': params.airflow_home})
 
 	def configure(self, env):
 		import params
@@ -125,21 +130,21 @@ if $programname  == 'airflow-flower' then {airflow_log_dir}/flower.log
 		import params
 		env.set_params(params)
 		self.configure(env)
-		Execute(format("source ~/venv-airflow/bin/activate && airflow initdb"),
+		Execute(format("/usr/local/bin/airflow initdb"),
 			user=params.airflow_user)
 
 	def resetdb(self, env):
 		import params
 		env.set_params(params)
 		self.configure(env)
-		Execute(format("source ~/venv-airflow/bin/activate && airflow resetdb -y"),
+		Execute(format("/usr/local/bin/airflow resetdb -y"),
 			user=params.airflow_user)
 
 	def upgradedb(self, env):
 		import params
 		env.set_params(params)
 		self.configure(env)
-		Execute(format("source ~/venv-airflow/bin/activate && airflow upgradedb"),
+		Execute(format("/usr/local/bin/airflow upgradedb"),
 			user=params.airflow_user)
 
 

@@ -40,7 +40,7 @@ service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
 cluster_name = str(config['clusterName'])
 ambari_server_hostname = config['clusterHostInfo']['ambari_server_host'][0]
 
-airflow_home = '/home/' + config['configurations']['airflow-env']['airflow_user'] + '/airflow'
+airflow_home = '/usr/local/airflow'
 airflow_user = config['configurations']['airflow-env']['airflow_user']
 airflow_group = config['configurations']['airflow-env']['airflow_group']
 airflow_log_dir = config['configurations']['airflow-env']['airflow_log_dir']
