@@ -1,3 +1,10 @@
+```
+  ____________       _____________
+ ____    |__( )_________  __/__  /________      __
+____  /| |_  /__  ___/_  /_ __  /_  __ \_ | /| / /
+___  ___ |  / _  /   _  __/ _  / / /_/ /_ |/ |/ /
+ _/_/  |_/_/  /_/    /_/    /_/  \____/____/|__/  v1.10.5
+```
 # Apache Airflow management pack for Apache Ambari
 
 [![Airflow version](https://img.shields.io/badge/Airflow-1.10.5-brightgreen.svg)](https://github.com/sburn/ambari-airflow)
@@ -6,14 +13,7 @@
 [![HDP version](https://img.shields.io/badge/HDP-3.1-brightgreen.svg)](https://github.com/sburn/ambari-airflow)
 [![License](http://img.shields.io/:license-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
-This Mpack allows you to install/configure Airflow directly from Ambari.
-```
-  ____________       _____________
- ____    |__( )_________  __/__  /________      __
-____  /| |_  /__  ___/_  /_ __  /_  __ \_ | /| / /
-___  ___ |  / _  /   _  __/ _  / / /_/ /_ |/ |/ /
- _/_/  |_/_/  /_/    /_/    /_/  \____/____/|__/  v1.10.5
-```
+Mpack allows you to install/configure Airflow directly from Ambari.
 
 Installing Apache Aiflow Mpack
 ------------------------------
