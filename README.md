@@ -7,9 +7,16 @@
 [![License](http://img.shields.io/:license-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 This Mpack allows you to install/configure Airflow directly from Ambari.
-Apache Airflow version included: 1.10.5
+```
+  ____________       _____________
+ ____    |__( )_________  __/__  /________      __
+____  /| |_  /__  ___/_  /_ __  /_  __ \_ | /| / /
+___  ___ |  / _  /   _  __/ _  / / /_/ /_ |/ |/ /
+ _/_/  |_/_/  /_/    /_/    /_/  \____/____/|__/  v1.10.5
+```
 
-#### Installing Apache Aiflow Mpack:
+Installing Apache Aiflow Mpack
+------------------------------
 1. Stop Ambari server.
 2. Install the Apache Airflow Mpack on Ambari server.
 3. Start Ambari server.
@@ -20,7 +27,8 @@ ambari-server install-mpack --mpack=airflow-mpack.tar.gz
 ambari-server start
 ```
 
-#### Upgrading Apache Aiflow Mpack:
+Upgrading Apache Aiflow Mpack
+-----------------------------
 1. Stop Ambari server.
 2. Upgrade the Apache Airflow Mpack on Ambari server.
 3. Start Ambari server.
@@ -31,7 +39,8 @@ ambari-server upgrade-mpack --mpack=airflow-mpack.tar.gz
 ambari-server start
 ```
 
-### Installing Apache Airflow from Ambari:
+Installing Apache Airflow from Ambari
+-------------------------------------
 1. Action - Add service.
 2. Select Apache Airflow service.
 3. Choose destination server.
