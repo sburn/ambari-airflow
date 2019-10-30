@@ -1,4 +1,4 @@
-# Apache Airflow management pack for Apache Ambari (airflow-ambari-mpack)
+# Apache Airflow management pack for Apache Ambari
 
 [![Airflow version](https://img.shields.io/badge/Airflow-1.10.5-brightgreen.svg)](https://github.com/sburn/ambari-airflow)
 [![Python version](https://img.shields.io/badge/Python-3-brightgreen.svg)](https://github.com/sburn/ambari-airflow)
